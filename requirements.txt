@@ -1,0 +1,22 @@
+# LLM + Embeddings (Google)
+langchain
+langchain-google-genai
+langchain-community
+langchain-qdrant
+
+# Vector Store
+qdrant-client
+
+# Scraping + Parsing
+requests
+beautifulsoup4
+lxml
+
+# Utils
+python-dotenv
+
+# MCP Server
+# fastmcp
+# google-cloud-storage
+# google-cloud-compute
+# google-cloud-bigquery
