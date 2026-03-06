@@ -8,9 +8,7 @@ langchain-qdrant
 qdrant-client
 
 # Scraping + Parsing
-requests
-beautifulsoup4
-lxml
+crawl4ai
 
 # Utils
 python-dotenv
