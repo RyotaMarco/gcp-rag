@@ -5,7 +5,7 @@ class Config:
     GCP_SERVICES = [
 
         # --- Main ---
-        {"endpoint": "vertex-ai/docs/overview", "category": CATEGORY, "subcategory": "ML Platform", "product": "Vertex AI"},
+        {"endpoint": "/vertex-ai/docs", "category": CATEGORY, "subcategory": "ML Platform", "product": "Vertex AI"},
         {"endpoint": "vertex-ai/docs/workbench/introduction", "category": CATEGORY, "subcategory": "ML Platform", "product": "Vertex AI Workbench"},
         {"endpoint": "vertex-ai/docs/colab/introduction", "category": CATEGORY, "subcategory": "ML Platform", "product": "Colab Enterprise"},
         {"endpoint": "vertex-ai/docs/pipelines/introduction", "category": CATEGORY, "subcategory": "ML Platform", "product": "Vertex AI Pipelines"},
@@ -13,7 +13,7 @@ class Config:
         {"endpoint": "vertex-ai/docs/evaluation/introduction", "category": CATEGORY, "subcategory": "ML Platform", "product": "Vertex AI Evaluation"},
         {"endpoint": "vertex-ai/docs/feature-store/overview", "category": CATEGORY, "subcategory": "ML Platform", "product": "Vertex AI Feature Store"},
 
-        # --- Gen AI ---
+        # # --- Gen AI ---
         {"endpoint": "vertex-ai/generative-ai/docs/overview", "category": CATEGORY, "subcategory": "Generative AI", "product": "Vertex AI Generative AI"},
         {"endpoint": "vertex-ai/generative-ai/docs/model-garden/explore-models", "category": CATEGORY, "subcategory": "Generative AI", "product": "Model Garden"},
         {"endpoint": "vertex-ai/generative-ai/docs/imagen/overview", "category": CATEGORY, "subcategory": "Generative AI", "product": "Imagen"},
