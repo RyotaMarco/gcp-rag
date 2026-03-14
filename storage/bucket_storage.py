@@ -10,7 +10,14 @@ class BucketStorage:
         self.raw_bucket_name = config.RAW_BUCKET_NAME
         self.processed_bucket_name = config.PROCESSED_BUCKET_NAME
         self.localstack_url = config.LOCALSTACK_URL
-        self.s3 = boto3.client('s3', endpoint_url=self.localstack_url)
+        self.aws_access_key_id = config.AWS_ACCESS_KEY_ID
+        self.aws_secret_access_key = config.AWS_SECRET_ACCESS_KEY
+        self.aws_default_region = config.AWS_DEFAULT_REGION
+        self.s3 = boto3.client('s3',
+                               aws_access_key_id=self.aws_access_key_id,
+                               aws_secret_access_key=self.aws_secret_access_key,
+                               region_name=self.aws_default_region,
+                               endpoint_url=self.localstack_url)
         self._create_bucket()
 
     def _create_bucket(self) -> None:
@@ -43,7 +50,10 @@ class BucketStorage:
         parameters:
             prefix: Prefix of the files to be listed
         """
-        response = self.s3.list_objects_v2(Bucket=bucket_name, Prefix=prefix)
+        kwarg = {'Bucket': bucket_name}
+        if prefix:
+            kwarg['Prefix'] = prefix
+        response = self.s3.list_objects_v2(**kwarg)
         return [content['Key'] for content in response.get('Contents', [])]
 
 

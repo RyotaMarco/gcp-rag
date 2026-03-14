@@ -16,6 +16,9 @@ class Config:
     LOCALSTACK_URL = _require_env("LOCALSTACK_URL")
     RAW_BUCKET_NAME = _require_env("GCP_DOCS_BUCKET_NAME_RAW")
     PROCESSED_BUCKET_NAME = _require_env("GCP_DOCS_BUCKET_NAME_PROCESSED")
+    AWS_ACCESS_KEY_ID = _require_env("AWS_ACCESS_KEY_ID")
+    AWS_SECRET_ACCESS_KEY = _require_env("AWS_SECRET_ACCESS_KEY")
+    AWS_DEFAULT_REGION = _require_env("AWS_DEFAULT_REGION")
 
     GCP_SERVICES = [
 
