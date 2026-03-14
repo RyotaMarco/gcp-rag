@@ -12,6 +12,8 @@ crawl4ai
 
 # Utils
 python-dotenv
+boto3
+botocore
 
 # MCP Server
 # fastmcp
