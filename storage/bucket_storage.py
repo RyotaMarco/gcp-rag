@@ -82,3 +82,12 @@ class BucketStorage:
         """
         self.copy_file(source_file_path)
         self.delete_file(source_file_path)
+
+    def read_object(self, source_file_path: str):
+        """
+        Read an object from the raw bucket
+        parameters:
+            source_file_path: Path of the file to be read
+        """
+        response = self.s3.get_object(Bucket=self.raw_bucket_name, Key=source_file_path)
+        return response['Body'].read().decode('utf-8')
