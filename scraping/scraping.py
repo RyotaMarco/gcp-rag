@@ -6,10 +6,10 @@ from crawl4ai.deep_crawling.filters import FilterChain, URLPatternFilter
 
 
 class GCPDocsCrawler:
-    def __init__(self, config: type[Config] = Config) -> None:
+    def __init__(self, config: type[Config] = Config, bucket: BucketStorage = BucketStorage()) -> None:
         self.base_url = config.BASE_URL
         self.gcp_services = config.GCP_SERVICES
-        self.bucket = BucketStorage()
+        self.bucket = bucket
         self.raw_bucket_name = config.RAW_BUCKET_NAME
 
     async def crawl_gpc_docs(self, service: dict) -> None:
