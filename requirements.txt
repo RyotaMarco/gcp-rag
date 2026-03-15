@@ -1,8 +1,11 @@
 # LLM + Embeddings (Google)
 langchain
-langchain-google-genai
-langchain-community
+langchain-core
 langchain-qdrant
+langchain-community
+langchain-google-genai
+langchain-text-splitters
+
 
 # Vector Store
 qdrant-client
@@ -11,9 +14,9 @@ qdrant-client
 crawl4ai
 
 # Utils
-python-dotenv
 boto3
 botocore
+python-dotenv
 
 # MCP Server
 # fastmcp
