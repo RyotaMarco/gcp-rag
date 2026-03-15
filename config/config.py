@@ -12,6 +12,7 @@ def _require_env(key: str) -> str:
 
 class Config:
     BASE_URL = "https://docs.cloud.google.com"
+    QDRANT_URL = _require_env("QDRANT_URL")
     CATEGORY = "AI/ML"
     LOCALSTACK_URL = _require_env("LOCALSTACK_URL")
     RAW_BUCKET_NAME = _require_env("GCP_DOCS_BUCKET_NAME_RAW")
@@ -19,6 +20,9 @@ class Config:
     AWS_ACCESS_KEY_ID = _require_env("AWS_ACCESS_KEY_ID")
     AWS_SECRET_ACCESS_KEY = _require_env("AWS_SECRET_ACCESS_KEY")
     AWS_DEFAULT_REGION = _require_env("AWS_DEFAULT_REGION")
+    GEMINI_API_KEY = _require_env("GEMINI_API_KEY")
+    CHUNK_SIZE = 1000
+    CHUNK_OVERLAP = 200
 
     GCP_SERVICES = [
 
