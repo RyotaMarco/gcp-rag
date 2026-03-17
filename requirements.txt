@@ -3,7 +3,7 @@ langchain
 langchain-core
 langchain-qdrant
 langchain-community
-langchain-google-genai
+langchain-groq
 langchain-text-splitters
 langchain-huggingface
 sentence_transformers
@@ -24,3 +24,4 @@ python-dotenv
 # google-cloud-storage
 # google-cloud-compute
 # google-cloud-bigquery
+
