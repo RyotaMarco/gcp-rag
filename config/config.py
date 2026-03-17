@@ -20,7 +20,6 @@ class Config:
     AWS_ACCESS_KEY_ID = _require_env("AWS_ACCESS_KEY_ID")
     AWS_SECRET_ACCESS_KEY = _require_env("AWS_SECRET_ACCESS_KEY")
     AWS_DEFAULT_REGION = _require_env("AWS_DEFAULT_REGION")
-    GEMINI_API_KEY = _require_env("GEMINI_API_KEY")
     CHUNK_SIZE = 1000
     CHUNK_OVERLAP = 200
 

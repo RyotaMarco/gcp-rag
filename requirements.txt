@@ -5,7 +5,8 @@ langchain-qdrant
 langchain-community
 langchain-google-genai
 langchain-text-splitters
-
+langchain-huggingface
+sentence_transformers
 
 # Vector Store
 qdrant-client
