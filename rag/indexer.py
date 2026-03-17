@@ -21,12 +21,12 @@ class Indexer:
         if not self.qdrant_client.collection_exists("embedded_files"):
             self.qdrant_client.create_collection(
                 collection_name="embedded_files",
-                vectors_config=VectorParams(size=3072, distance=Distance.COSINE))
+                vectors_config=VectorParams(size=384, distance=Distance.COSINE))
 
     def add_documents(self, documents: list[Document]) -> QdrantVectorStore:
         """
         Access Qdrant Vector Store to add documents
-        parameter:
+        parameters:
             documents: List of documents to be added
         """
         vector_store = QdrantVectorStore(
