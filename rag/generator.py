@@ -8,7 +8,7 @@ class Generator:
 
     def generate_with_context(self, context: str, question: str):
         """
-        Generate a response based on the provided context and question.
+        Generate a response based on the provided context and question. Only in English.
 
         parameters:
             context: The context information to be used for generating the response.
