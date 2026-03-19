@@ -6,12 +6,11 @@ services:
       - "127.0.0.1:4566:4566"
       - "127.0.0.1:4510-4559:4510-4559"
     environment:
-      - "LOCALSTACK_AUTH_TOKEN=${LOCALSTACK_AUTH_TOKEN-}"
+      - "LOCALSTACK_AUTH_TOKEN=${LOCALSTACK_AUTH_TOKEN:-}"
       - DEBUG=${DEBUG:-0}
     volumes:
       - "${LOCALSTACK_VOLUME_DIR:-./volume}:/var/lib/localstack"
       - "/var/run/docker.sock:/var/run/docker.sock"
-
 
   qdrant:
     image: qdrant/qdrant:latest
@@ -20,15 +19,34 @@ services:
     ports:
       - 6333:6333
       - 6334:6334
-    expose:
-      - 6333
-      - 6334
-      - 6335
     configs:
       - source: qdrant_config
         target: /qdrant/config/production.yaml
     volumes:
       - ./qdrant_data:/qdrant/storage
+
+  api:
+    build:
+      context: .
+      dockerfile: api/Dockerfile
+    container_name: gcp-api
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    depends_on:
+      - localstack
+      - qdrant
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: gcp-frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - api
 
 configs:
   qdrant_config:
