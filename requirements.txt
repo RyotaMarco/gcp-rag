@@ -18,6 +18,10 @@ crawl4ai
 boto3
 botocore
 python-dotenv
+uvicorn
+fastapi
+uvicorn
+pydantic
 
 # MCP Server
 # fastmcp
