@@ -9,7 +9,7 @@
 This project implements an AI assistant for Google Cloud Platform engineers capable of:
 
 1. **Answering technical questions** using official GCP documentation via semantic search
-2. **Interacting with real cloud resources** (list VMs, buckets, datasets) via MCP
+2. **Interacting with real cloud resources** (list VMs, buckets, datasets) via MCP — *in progress*
 
 Built to demonstrate end-to-end AI Engineering skills across scraping, storage, embedding, retrieval, orchestration, and cloud integration.
 
@@ -18,22 +18,24 @@ Built to demonstrate end-to-end AI Engineering skills across scraping, storage, 
 ## Architecture
 
 ```
-User Question
-      ↓
-  FastAPI (POST /ask)
-      ↓
-  RAG Pipeline
-  ├── Retriever → Qdrant (semantic search)
-  │       ↓
-  │   Top-K chunks + metadata
-  │       ↓
-  └── Generator → Groq/Llama (LLM response)
-      
-  Background Pipeline (--setup)
-  ├── Scraping   → crawl4ai → LocalStack S3 (raw/)
-  ├── Chunking   → LangChain MarkdownHeaderTextSplitter
-  ├── Embedding  → sentence-transformers/all-MiniLM-L6-v2
-  └── Indexing   → Qdrant
+User
+  ↓
+Frontend (React + NGINX)
+  ↓
+FastAPI (POST /ask)
+  ↓
+RAG Pipeline
+├── Retriever → Qdrant (semantic search)
+│       ↓
+│   Top-K chunks + metadata
+│       ↓
+└── Generator → Groq/Llama (LLM response)
+
+Background Pipeline (--setup flag)
+├── Scraping   → crawl4ai → LocalStack S3 (raw bucket)
+├── Chunking   → LangChain MarkdownHeaderTextSplitter
+├── Embedding  → sentence-transformers/all-MiniLM-L6-v2
+└── Indexing   → Qdrant (2594 vectors)
 ```
 
 ---
@@ -43,14 +45,15 @@ User Question
 | Layer | Technology |
 |---|---|
 | Scraping | crawl4ai + BFSDeepCrawlStrategy |
-| Object Storage | LocalStack S3 (S3-compatible) |
+| Object Storage | LocalStack S3 (S3-compatible, two buckets: raw/processed) |
 | Chunking | LangChain MarkdownHeaderTextSplitter + RecursiveCharacterTextSplitter |
-| Embeddings | sentence-transformers/all-MiniLM-L6-v2 (local) |
+| Embeddings | sentence-transformers/all-MiniLM-L6-v2 (local, no API required) |
 | Vector Store | Qdrant |
 | LLM | Groq — llama-3.3-70b-versatile |
 | Orchestration | LangChain (LCEL) |
 | API | FastAPI + Uvicorn |
-| Infrastructure | Docker Compose |
+| Frontend | React + Vite + NGINX |
+| Infrastructure | Docker Compose (4 containers) |
 
 ---
 
@@ -59,24 +62,30 @@ User Question
 ```
 gcp-rag/
 ├── api/
-│   └── main.py              # FastAPI endpoints
+│   ├── main.py              # FastAPI endpoints + CORS
+│   └── Dockerfile
 ├── config/
-│   └── config.py            # Environment configuration
+│   └── config.py            # Environment configuration (fail-fast pattern)
+├── frontend/
+│   ├── src/
+│   │   └── App.jsx          # React chat interface (anime noir aesthetic)
+│   └── Dockerfile
 ├── rag/
-│   ├── chunking.py          # Markdown chunking
-│   ├── embedding.py         # Embedding model wrapper
-│   ├── generator.py         # LLM response generation
+│   ├── chunking.py          # Markdown chunking strategy
+│   ├── embedding.py         # HuggingFace embedding wrapper
+│   ├── generator.py         # LLM response generation (LCEL pipeline)
 │   ├── indexer.py           # Qdrant indexing
-│   ├── ingestion.py         # Pipeline orchestration (scrape → chunk → embed → index)
+│   ├── ingestion.py         # Pipeline orchestration
 │   ├── pipeline.py          # RAG pipeline (retrieve → generate)
 │   └── retriever.py         # Qdrant semantic search
 ├── scraping/
-│   └── scraping.py          # GCP docs crawler
+│   └── scraping.py          # GCP docs crawler (BFS + URL filtering)
 ├── storage/
 │   └── bucket_storage.py    # S3/LocalStack storage layer
 ├── docker-compose.yml
-├── main.py                  # Entry point
-└── requirements.txt
+├── main.py                  # Entry point (--setup flag for ingestion)
+├── requirements.txt
+└── .env.example
 ```
 
 ---
@@ -86,48 +95,43 @@ gcp-rag/
 ### Prerequisites
 
 - Docker Desktop
-- Python 3.11+
-- Groq API key (free tier at [console.groq.com](https://console.groq.com))
-- LocalStack Auth Token (free tier at [localstack.cloud](https://localstack.cloud))
+- Python 3.11+ (for running setup pipeline)
+- Groq API key — free at [console.groq.com](https://console.groq.com)
+- LocalStack Auth Token — free at [localstack.cloud](https://localstack.cloud)
 
-### Setup
+### 1. Clone and configure
 
-**1. Clone the repository**
 ```bash
 git clone https://github.com/your-username/gcp-rag
 cd gcp-rag
-```
-
-**2. Configure environment variables**
-```bash
 cp .env.example .env
 # Fill in your API keys in .env
 ```
 
-**3. Start infrastructure**
+### 2. Start infrastructure
+
 ```bash
 docker compose up -d
 ```
 
-**4. Install dependencies**
+### 3. Run the scraping and ingestion pipeline
+
 ```bash
 pip install -r requirements.txt
-```
-
-**5. Run the scraping and ingestion pipeline**
-```bash
 python main.py --setup
 ```
 
-**6. Start the API**
-```bash
-uvicorn api.main:app --reload
-```
+This will:
+- Scrape 24 GCP AI/ML documentation endpoints
+- Chunk and embed all documents locally
+- Index ~2594 vectors into Qdrant
+- Move processed files to the processed S3 bucket
 
-Or run the CLI interface:
-```bash
-python main.py
-```
+### 4. Access the interface
+
+Open [http://localhost:80](http://localhost:80) in your browser.
+
+The FastAPI docs are available at [http://localhost:8000/docs](http://localhost:8000/docs).
 
 ---
 
@@ -152,12 +156,10 @@ QDRANT_URL=http://localhost:6333
 
 ---
 
-## Usage
-
-### API
+## API
 
 ```bash
-curl -X POST http://localhost:8000/ask \
+curl -X POST http://localhost:8000/ask/ \
   -H "Content-Type: application/json" \
   -d '{"question": "How does Vertex AI handle model versioning?"}'
 ```
@@ -169,20 +171,11 @@ Response:
 }
 ```
 
-### CLI
-
-```bash
-python main.py
-
-Ask a question (or 'exit' to quit): What is Vertex AI?
-Vertex AI is a machine learning platform that allows you to train and deploy ML models...
-```
-
 ---
 
 ## GCP Services Covered
 
-The RAG pipeline covers **24 GCP AI/ML services** across 8 categories:
+24 GCP AI/ML services across 8 categories:
 
 - **ML Platform** — Vertex AI, Vertex AI Generative AI
 - **Generative AI** — Gemini API
@@ -200,19 +193,15 @@ The RAG pipeline covers **24 GCP AI/ML services** across 8 categories:
 
 ### Completed ✅
 
-- [x] Web scraping of GCP AI/ML documentation (crawl4ai + BFS)
-- [x] Raw document storage in LocalStack S3
+- [x] Web scraping of GCP AI/ML documentation (crawl4ai + BFS + URL filtering)
+- [x] Raw document storage in LocalStack S3 (two-bucket pipeline control)
 - [x] Markdown chunking with header-aware splitting
-- [x] Local embedding with sentence-transformers
-- [x] Vector indexing in Qdrant
-- [x] Pipeline state control (raw → processed buckets)
-- [x] RAG pipeline (semantic retrieval + LLM generation)
-- [x] CLI interface
-
-### In Progress 🔧
-
-- [ ] FastAPI REST endpoint (`POST /ask`)
-- [ ] Docker Compose full integration (API container)
+- [x] Local embedding with sentence-transformers (no API rate limits)
+- [x] Vector indexing in Qdrant (2594 chunks)
+- [x] RAG pipeline (semantic retrieval + LLM generation via LCEL)
+- [x] FastAPI REST endpoint with CORS support
+- [x] React frontend with anime noir aesthetic
+- [x] Full Docker Compose setup (4 containers)
 
 ### Planned 📋
 
@@ -225,38 +214,39 @@ The RAG pipeline covers **24 GCP AI/ML services** across 8 categories:
 - [ ] RAG evaluation metrics (Precision@k, context relevance)
 - [ ] LangSmith observability integration
 - [ ] Re-ranking and multi-query retrieval improvements
-- [ ] Cloud Run deployment guide
 
 ---
 
 ## Design Decisions
 
 **Why LocalStack over MongoDB for raw storage?**
-Object storage (S3) is the industry standard for data lake architectures. Using two buckets (`raw/` and `processed/`) provides clear pipeline state control without requiring a separate database.
+Object storage (S3) is the industry standard for data lake architectures. Two buckets (`raw/` and `processed/`) provide clear pipeline state control without requiring a separate database. In production this would migrate to GCS or AWS S3 with no code changes beyond credentials.
 
-**Why local embeddings (all-MiniLM-L6-v2) over API-based?**
-Local embeddings eliminate external dependencies, rate limits, and costs for a portfolio project. The architecture is designed to swap embedding models with a single line change — demonstrating LangChain's abstraction benefits.
+**Why local embeddings (all-MiniLM-L6-v2)?**
+Eliminates external dependencies, rate limits, and costs. The LangChain abstraction makes swapping to any embedding model a one-line change — demonstrating architectural flexibility.
 
-**Why LangChain?**
-Higher visibility in AI Engineering job postings. The LCEL pipeline pattern demonstrates modern LLM orchestration skills valued by hiring teams.
+**Why LangChain + LCEL?**
+Higher visibility in AI Engineering job postings. The declarative pipeline pattern (`prompt | model`) demonstrates modern LLM orchestration skills valued by hiring teams.
 
-**Why Groq/Llama over OpenAI?**
+**Why Groq/Llama over OpenAI or Gemini?**
 Generous free tier (14,400 RPD), no credit card required, and demonstrates vendor-agnostic LLM integration — a key skill for AI Engineering roles.
 
 ---
 
-## Architecture Notes
+## Production Considerations
 
-This project is designed for **local development and portfolio demonstration**. In a production environment, the following changes would be applied:
+This project is designed for local development and portfolio demonstration. In production:
 
-- LocalStack → AWS S3 or Google Cloud Storage
-- Local embeddings → Vertex AI `text-embedding-004` or similar
-- Groq → Vertex AI Gemini or OpenAI GPT-4
-- Docker Compose → Kubernetes or Cloud Run
-- Pipeline state control → DynamoDB or Cloud Spanner
+| Component | Local | Production |
+|---|---|---|
+| Object Storage | LocalStack | AWS S3 / Google Cloud Storage |
+| Embeddings | all-MiniLM-L6-v2 | Vertex AI text-embedding-004 |
+| LLM | Groq/Llama | Vertex AI Gemini / OpenAI GPT-4 |
+| Infrastructure | Docker Compose | Kubernetes / Cloud Run |
+| Pipeline State | S3 buckets | DynamoDB / Cloud Spanner |
 
 ---
 
 ## Author
 
-Built as an AI Engineering portfolio project demonstrating end-to-end LLM system design, from data ingestion to production-ready API.
+Built as an AI Engineering portfolio project demonstrating end-to-end LLM system design — from data ingestion to dockerized production-ready API with frontend.
