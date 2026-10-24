@@ -180,3 +180,11 @@ async def test_sources_reject_credentials_and_nonstandard_ports():
 
 def test_sidebar_hybrid_example_routes_to_tools():
     assert tool_route("Quais VMs estão ativas e como posso parar uma VM no Compute Engine?")[0] == "list_vms"
+
+def test_swagger_uses_proxy_prefix_for_schema():
+    pipe = Pipeline(Settings(), Retriever(), Gen(), Demo())
+    with TestClient(create_app(Settings(), pipe)) as client:
+        response = client.get('/docs')
+        assert response.status_code == 200
+        assert "'/api/openapi.json'" in response.text
+        assert client.get('/openapi.json').json()['info']['title'] == 'GCP AI Assistant'
