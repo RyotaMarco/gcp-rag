@@ -1,0 +1,12 @@
+{
+  "content": "# Identity and Access Management\n\n## Principals roles and permissions\n\nIdentity and Access Management associates principals with roles on resources. Roles contain permissions. Apply least privilege by granting only required permissions. IAM usa papéis e permissões para controlar acesso com privilégio mínimo.",
+  "metadata": {
+    "source_url": "https://docs.cloud.google.com/iam/docs/overview",
+    "title": "Identity and Access Management",
+    "product": "Identity and Access Management",
+    "section": "Principals roles and permissions",
+    "crawled_at": null,
+    "fixture": true,
+    "fixture_note": "Hand-authored paraphrase for testing; not a scraped or current documentation snapshot."
+  }
+}

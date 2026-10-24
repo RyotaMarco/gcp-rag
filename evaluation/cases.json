@@ -1,0 +1,450 @@
+[
+  {
+    "id": "model-registry-pt",
+    "kind": "retrieval",
+    "language": "pt",
+    "question": "Como versionar modelos no Vertex AI Model Registry?",
+    "expected_urls": [
+      "https://docs.cloud.google.com/vertex-ai/docs/model-registry/introduction"
+    ],
+    "expected_product": "Vertex AI Model Registry",
+    "expected_evidence": "Model versions and aliases"
+  },
+  {
+    "id": "model-registry-en",
+    "kind": "retrieval",
+    "language": "en",
+    "question": "How do I track model versions and aliases in Vertex AI?",
+    "expected_urls": [
+      "https://docs.cloud.google.com/vertex-ai/docs/model-registry/introduction"
+    ],
+    "expected_product": "Vertex AI Model Registry",
+    "expected_evidence": "Model versions and aliases"
+  },
+  {
+    "id": "vertex-endpoint-pt",
+    "kind": "retrieval",
+    "language": "pt",
+    "question": "Qual a diferença entre predição online e em lote no Vertex AI?",
+    "expected_urls": [
+      "https://docs.cloud.google.com/vertex-ai/docs/predictions/overview"
+    ],
+    "expected_product": "Vertex AI prediction",
+    "expected_evidence": "Online prediction endpoints"
+  },
+  {
+    "id": "vertex-endpoint-en",
+    "kind": "retrieval",
+    "language": "en",
+    "question": "What is the difference between Vertex AI online and batch prediction?",
+    "expected_urls": [
+      "https://docs.cloud.google.com/vertex-ai/docs/predictions/overview"
+    ],
+    "expected_product": "Vertex AI prediction",
+    "expected_evidence": "Online prediction endpoints"
+  },
+  {
+    "id": "dialogflow-pt",
+    "kind": "retrieval",
+    "language": "pt",
+    "question": "Como funcionam fluxos e páginas no Dialogflow CX?",
+    "expected_urls": [
+      "https://docs.cloud.google.com/dialogflow/cx/docs/basics"
+    ],
+    "expected_product": "Dialogflow CX",
+    "expected_evidence": "Flows and pages"
+  },
+  {
+    "id": "dialogflow-en",
+    "kind": "retrieval",
+    "language": "en",
+    "question": "How do Dialogflow CX flows and pages structure a conversation?",
+    "expected_urls": [
+      "https://docs.cloud.google.com/dialogflow/cx/docs/basics"
+    ],
+    "expected_product": "Dialogflow CX",
+    "expected_evidence": "Flows and pages"
+  },
+  {
+    "id": "vision-pt",
+    "kind": "retrieval",
+    "language": "pt",
+    "question": "Como extrair texto de uma imagem com Cloud Vision OCR?",
+    "expected_urls": [
+      "https://docs.cloud.google.com/vision/docs/ocr"
+    ],
+    "expected_product": "Cloud Vision API",
+    "expected_evidence": "Optical character recognition"
+  },
+  {
+    "id": "vision-en",
+    "kind": "retrieval",
+    "language": "en",
+    "question": "How can Cloud Vision OCR extract text from an image?",
+    "expected_urls": [
+      "https://docs.cloud.google.com/vision/docs/ocr"
+    ],
+    "expected_product": "Cloud Vision API",
+    "expected_evidence": "Optical character recognition"
+  },
+  {
+    "id": "speech-pt",
+    "kind": "retrieval",
+    "language": "pt",
+    "question": "Qual serviço transcreve áudio e fala em texto?",
+    "expected_urls": [
+      "https://docs.cloud.google.com/speech-to-text/docs/basics"
+    ],
+    "expected_product": "Speech-to-Text",
+    "expected_evidence": "Audio transcription"
+  },
+  {
+    "id": "speech-en",
+    "kind": "retrieval",
+    "language": "en",
+    "question": "Which Google Cloud service transcribes spoken audio into text?",
+    "expected_urls": [
+      "https://docs.cloud.google.com/speech-to-text/docs/basics"
+    ],
+    "expected_product": "Speech-to-Text",
+    "expected_evidence": "Audio transcription"
+  },
+  {
+    "id": "translation-pt",
+    "kind": "retrieval",
+    "language": "pt",
+    "question": "Como preservar termos técnicos ao traduzir texto com glossários?",
+    "expected_urls": [
+      "https://docs.cloud.google.com/translate/docs/overview"
+    ],
+    "expected_product": "Cloud Translation",
+    "expected_evidence": "Text translation"
+  },
+  {
+    "id": "translation-en",
+    "kind": "retrieval",
+    "language": "en",
+    "question": "How do Cloud Translation glossaries help translate technical terminology?",
+    "expected_urls": [
+      "https://docs.cloud.google.com/translate/docs/overview"
+    ],
+    "expected_product": "Cloud Translation",
+    "expected_evidence": "Text translation"
+  },
+  {
+    "id": "document-ai-pt",
+    "kind": "retrieval",
+    "language": "pt",
+    "question": "Como extrair campos estruturados de faturas com Document AI?",
+    "expected_urls": [
+      "https://docs.cloud.google.com/document-ai/docs/overview"
+    ],
+    "expected_product": "Document AI",
+    "expected_evidence": "Document processors"
+  },
+  {
+    "id": "document-ai-en",
+    "kind": "retrieval",
+    "language": "en",
+    "question": "How does Document AI extract structured fields from invoices?",
+    "expected_urls": [
+      "https://docs.cloud.google.com/document-ai/docs/overview"
+    ],
+    "expected_product": "Document AI",
+    "expected_evidence": "Document processors"
+  },
+  {
+    "id": "tpu-pt",
+    "kind": "retrieval",
+    "language": "pt",
+    "question": "Para que servem os aceleradores de tensores Cloud TPU?",
+    "expected_urls": [
+      "https://docs.cloud.google.com/tpu/docs/intro-to-tpu"
+    ],
+    "expected_product": "Cloud TPU",
+    "expected_evidence": "Machine learning accelerators"
+  },
+  {
+    "id": "tpu-en",
+    "kind": "retrieval",
+    "language": "en",
+    "question": "What are Cloud TPU tensor accelerators used for?",
+    "expected_urls": [
+      "https://docs.cloud.google.com/tpu/docs/intro-to-tpu"
+    ],
+    "expected_product": "Cloud TPU",
+    "expected_evidence": "Machine learning accelerators"
+  },
+  {
+    "id": "storage-pt",
+    "kind": "retrieval",
+    "language": "pt",
+    "question": "O que é um bucket de objetos no Cloud Storage?",
+    "expected_urls": [
+      "https://docs.cloud.google.com/storage/docs/buckets"
+    ],
+    "expected_product": "Cloud Storage",
+    "expected_evidence": "Buckets and objects"
+  },
+  {
+    "id": "storage-en",
+    "kind": "retrieval",
+    "language": "en",
+    "question": "What is a Cloud Storage bucket and how does it store objects?",
+    "expected_urls": [
+      "https://docs.cloud.google.com/storage/docs/buckets"
+    ],
+    "expected_product": "Cloud Storage",
+    "expected_evidence": "Buckets and objects"
+  },
+  {
+    "id": "compute-pt",
+    "kind": "retrieval",
+    "language": "pt",
+    "question": "O que compõe uma instância de máquina virtual do Compute Engine?",
+    "expected_urls": [
+      "https://docs.cloud.google.com/compute/docs/instances"
+    ],
+    "expected_product": "Compute Engine",
+    "expected_evidence": "Virtual machine instances"
+  },
+  {
+    "id": "compute-en",
+    "kind": "retrieval",
+    "language": "en",
+    "question": "What components make up a Compute Engine virtual machine instance?",
+    "expected_urls": [
+      "https://docs.cloud.google.com/compute/docs/instances"
+    ],
+    "expected_product": "Compute Engine",
+    "expected_evidence": "Virtual machine instances"
+  },
+  {
+    "id": "bigquery-pt",
+    "kind": "retrieval",
+    "language": "pt",
+    "question": "Como datasets organizam tabelas e views no BigQuery?",
+    "expected_urls": [
+      "https://docs.cloud.google.com/bigquery/docs/datasets-intro"
+    ],
+    "expected_product": "BigQuery",
+    "expected_evidence": "Datasets and tables"
+  },
+  {
+    "id": "bigquery-en",
+    "kind": "retrieval",
+    "language": "en",
+    "question": "How do BigQuery datasets organize tables and views?",
+    "expected_urls": [
+      "https://docs.cloud.google.com/bigquery/docs/datasets-intro"
+    ],
+    "expected_product": "BigQuery",
+    "expected_evidence": "Datasets and tables"
+  },
+  {
+    "id": "iam-pt",
+    "kind": "retrieval",
+    "language": "pt",
+    "question": "Como aplicar privilégio mínimo com papéis e permissões IAM?",
+    "expected_urls": [
+      "https://docs.cloud.google.com/iam/docs/overview"
+    ],
+    "expected_product": "Identity and Access Management",
+    "expected_evidence": "Principals roles and permissions"
+  },
+  {
+    "id": "iam-en",
+    "kind": "retrieval",
+    "language": "en",
+    "question": "How do IAM roles and permissions implement least privilege?",
+    "expected_urls": [
+      "https://docs.cloud.google.com/iam/docs/overview"
+    ],
+    "expected_product": "Identity and Access Management",
+    "expected_evidence": "Principals roles and permissions"
+  },
+  {
+    "id": "cloud-run-pt",
+    "kind": "retrieval",
+    "language": "pt",
+    "question": "Como executar containers HTTP sem estado no Cloud Run?",
+    "expected_urls": [
+      "https://docs.cloud.google.com/run/docs/overview/what-is-cloud-run"
+    ],
+    "expected_product": "Cloud Run",
+    "expected_evidence": "Managed container services"
+  },
+  {
+    "id": "cloud-run-en",
+    "kind": "retrieval",
+    "language": "en",
+    "question": "How does Cloud Run execute stateless HTTP containers?",
+    "expected_urls": [
+      "https://docs.cloud.google.com/run/docs/overview/what-is-cloud-run"
+    ],
+    "expected_product": "Cloud Run",
+    "expected_evidence": "Managed container services"
+  },
+  {
+    "id": "pubsub-pt",
+    "kind": "retrieval",
+    "language": "pt",
+    "question": "Como tópicos e assinaturas do Pub/Sub conectam produtores e consumidores?",
+    "expected_urls": [
+      "https://docs.cloud.google.com/pubsub/docs/overview"
+    ],
+    "expected_product": "Pub/Sub",
+    "expected_evidence": "Topics and subscriptions"
+  },
+  {
+    "id": "pubsub-en",
+    "kind": "retrieval",
+    "language": "en",
+    "question": "How do Pub/Sub topics and subscriptions connect publishers and subscribers?",
+    "expected_urls": [
+      "https://docs.cloud.google.com/pubsub/docs/overview"
+    ],
+    "expected_product": "Pub/Sub",
+    "expected_evidence": "Topics and subscriptions"
+  },
+  {
+    "id": "cloud-sql-pt",
+    "kind": "retrieval",
+    "language": "pt",
+    "question": "Como o Cloud SQL oferece bancos relacionais gerenciados e backups?",
+    "expected_urls": [
+      "https://docs.cloud.google.com/sql/docs/introduction"
+    ],
+    "expected_product": "Cloud SQL",
+    "expected_evidence": "Managed relational databases"
+  },
+  {
+    "id": "cloud-sql-en",
+    "kind": "retrieval",
+    "language": "en",
+    "question": "What managed relational databases and backup features does Cloud SQL provide?",
+    "expected_urls": [
+      "https://docs.cloud.google.com/sql/docs/introduction"
+    ],
+    "expected_product": "Cloud SQL",
+    "expected_evidence": "Managed relational databases"
+  },
+  {
+    "id": "continuation-pt",
+    "kind": "continuation",
+    "language": "pt",
+    "question": "E como organizo as versões?",
+    "history": [
+      {
+        "role": "user",
+        "content": "Quero entender o Vertex AI Model Registry."
+      },
+      {
+        "role": "assistant",
+        "content": "Ele organiza os modelos registrados."
+      }
+    ],
+    "expected_urls": [
+      "https://docs.cloud.google.com/vertex-ai/docs/model-registry/introduction"
+    ],
+    "expected_product": "Vertex AI Model Registry"
+  },
+  {
+    "id": "continuation-en",
+    "kind": "continuation",
+    "language": "en",
+    "question": "How are tables organized there?",
+    "history": [
+      {
+        "role": "user",
+        "content": "Explain BigQuery datasets."
+      },
+      {
+        "role": "assistant",
+        "content": "Datasets contain tables and views."
+      }
+    ],
+    "expected_urls": [
+      "https://docs.cloud.google.com/bigquery/docs/datasets-intro"
+    ],
+    "expected_product": "BigQuery"
+  },
+  {
+    "id": "ambiguous-pt",
+    "kind": "clarification",
+    "language": "pt",
+    "question": "Como configuro isso?",
+    "expected_mode": "clarification"
+  },
+  {
+    "id": "ambiguous-en",
+    "kind": "clarification",
+    "language": "en",
+    "question": "How do I configure it?",
+    "expected_mode": "clarification"
+  },
+  {
+    "id": "no-evidence-pt",
+    "kind": "insufficient_evidence",
+    "language": "pt",
+    "question": "Qual o preço exato do Google Cloud para minha conta amanhã?",
+    "expected_mode": "insufficient_evidence"
+  },
+  {
+    "id": "no-evidence-en",
+    "kind": "insufficient_evidence",
+    "language": "en",
+    "question": "What is the unpublished roadmap for Google Cloud in 2035?",
+    "expected_mode": "insufficient_evidence"
+  },
+  {
+    "id": "out-of-scope",
+    "kind": "insufficient_evidence",
+    "language": "pt",
+    "question": "Qual a melhor receita de bolo de chocolate?",
+    "expected_mode": "insufficient_evidence"
+  },
+  {
+    "id": "mcp-buckets-pt",
+    "kind": "mcp",
+    "language": "pt",
+    "question": "Liste os buckets do projeto demo.",
+    "expected_mode": "mcp",
+    "expected_simulated": true
+  },
+  {
+    "id": "mcp-vms-en",
+    "kind": "mcp",
+    "language": "en",
+    "question": "List the virtual machines in the demo project.",
+    "expected_mode": "mcp",
+    "expected_simulated": true
+  },
+  {
+    "id": "mcp-datasets-pt",
+    "kind": "mcp",
+    "language": "pt",
+    "question": "Liste os datasets do BigQuery no projeto demo.",
+    "expected_mode": "mcp",
+    "expected_simulated": true
+  },
+  {
+    "id": "mcp-public-buckets",
+    "kind": "mcp",
+    "language": "en",
+    "question": "Which demo buckets allow public access?",
+    "expected_mode": "mcp",
+    "expected_simulated": true
+  },
+  {
+    "id": "hybrid-pt",
+    "kind": "hybrid",
+    "language": "pt",
+    "question": "Liste os buckets demo e explique como funciona o acesso uniforme no Cloud Storage.",
+    "expected_mode": "hybrid",
+    "expected_simulated": true,
+    "expected_urls": [
+      "https://docs.cloud.google.com/storage/docs/buckets"
+    ]
+  }
+]

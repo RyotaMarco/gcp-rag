@@ -1,0 +1,12 @@
+{
+  "content": "# Cloud TPU\n\n## Machine learning accelerators\n\nCloud TPU provides tensor processing units for machine learning workloads. TPU accelerators are optimized for tensor operations used by supported frameworks. Aceleradores TPU executam operações de tensores em treinamento de modelos.",
+  "metadata": {
+    "source_url": "https://docs.cloud.google.com/tpu/docs/intro-to-tpu",
+    "title": "Cloud TPU",
+    "product": "Cloud TPU",
+    "section": "Machine learning accelerators",
+    "crawled_at": null,
+    "fixture": true,
+    "fixture_note": "Hand-authored paraphrase for testing; not a scraped or current documentation snapshot."
+  }
+}

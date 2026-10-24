@@ -1,0 +1,12 @@
+{
+  "content": "# Compute Engine\n\n## Virtual machine instances\n\nCompute Engine provides virtual machine instances. Each VM uses a machine type, an operating system image and persistent disk storage. Instâncias de máquinas virtuais podem ser iniciadas e interrompidas.",
+  "metadata": {
+    "source_url": "https://docs.cloud.google.com/compute/docs/instances",
+    "title": "Compute Engine",
+    "product": "Compute Engine",
+    "section": "Virtual machine instances",
+    "crawled_at": null,
+    "fixture": true,
+    "fixture_note": "Hand-authored paraphrase for testing; not a scraped or current documentation snapshot."
+  }
+}

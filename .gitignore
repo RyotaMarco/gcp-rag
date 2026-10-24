@@ -1,7 +1,18 @@
-# Environments
 .env
-
-#Folders
-volume
-qdrant_data
-gcp-ai-assistant-dev-b936449b2e12.json
+.env.*
+!.env.example
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+data/
+volume/
+qdrant_data/
+models/
+*.log
+node_modules/
+frontend/dist/
+frontend/coverage/
+playwright-report/
+test-results/
+*.zip

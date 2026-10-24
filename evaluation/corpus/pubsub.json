@@ -1,0 +1,12 @@
+{
+  "content": "# Pub/Sub\n\n## Topics and subscriptions\n\nPub/Sub decouples message publishers and subscribers. Publishers send messages to topics; subscriptions deliver topic messages to consumers. Tópicos e assinaturas permitem comunicação assíncrona entre serviços.",
+  "metadata": {
+    "source_url": "https://docs.cloud.google.com/pubsub/docs/overview",
+    "title": "Pub/Sub",
+    "product": "Pub/Sub",
+    "section": "Topics and subscriptions",
+    "crawled_at": null,
+    "fixture": true,
+    "fixture_note": "Hand-authored paraphrase for testing; not a scraped or current documentation snapshot."
+  }
+}

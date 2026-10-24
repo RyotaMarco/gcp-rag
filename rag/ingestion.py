@@ -1,28 +1,33 @@
-from config.config import Config
+"""Repeatable ingestion from local raw JSON documents into Qdrant."""
+import logging
+from config.config import Settings, get_settings
 from rag.chunking import Chunker
-from storage.bucket_storage import BucketStorage
 from rag.indexer import Indexer
+from storage.bucket_storage import DocumentStorage
+
+logger = logging.getLogger(__name__)
 
 
 class Ingestion:
-    def __init__(self, config: type[Config] = Config):
-        self.raw_bucket_name = config.RAW_BUCKET_NAME
-        self.bucket = BucketStorage()
-        self.chunker = Chunker()
-        self.indexer = Indexer()
+    def __init__(self, settings: Settings | None = None, client=None, embedding=None):
+        self.settings = settings or get_settings()
+        self.storage = DocumentStorage(self.settings)
+        self.chunker = Chunker(self.settings)
+        self.indexer = Indexer(self.settings, client=client, embedding=embedding)
 
-    def run (self):
-        """
-        Run the ingestion process to chunk, embed, and move files.
-        """
-        list_files = self.bucket.list_files(self.raw_bucket_name)
-
-        for file in list_files:
+    def run(self, rebuild: bool = False) -> dict:
+        self.indexer.prepare(rebuild=rebuild)
+        summary = {"updated": 0, "unchanged": 0, "failed": 0, "chunks": 0}
+        def invalid_document(path, error):
+            summary["failed"] += 1
+            logger.error("Skipping invalid raw document %s: %s", path.name, error)
+        for source in self.storage.documents(on_error=invalid_document):
             try:
-                read_files = self.bucket.read_object(file)
-                chunks = self.chunker.chunk(read_files)
-                self.indexer.add_documents(chunks)
-                self.bucket.move_files(file)
-            except Exception as e:
-                print(f"Error processing file {file}: {e}")
-                continue
+                documents = self.chunker.chunk(source["content"], source["metadata"])
+                result = self.indexer.upsert_source(documents)
+                summary[result["status"]] += 1
+                summary["chunks"] += result["chunks"]
+            except Exception:
+                summary["failed"] += 1
+                logger.exception("Failed to index %s", source["metadata"].get("source_url", "unknown"))
+        return summary

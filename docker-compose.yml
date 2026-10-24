@@ -1,54 +1,102 @@
-services:
-  localstack:
-    container_name: "${LOCALSTACK_DOCKER_NAME:-localstack-main}"
-    image: localstack/localstack
-    ports:
-      - "127.0.0.1:4566:4566"
-      - "127.0.0.1:4510-4559:4510-4559"
-    environment:
-      - "LOCALSTACK_AUTH_TOKEN=${LOCALSTACK_AUTH_TOKEN:-}"
-      - DEBUG=${DEBUG:-0}
-    volumes:
-      - "${LOCALSTACK_VOLUME_DIR:-./volume}:/var/lib/localstack"
-      - "/var/run/docker.sock:/var/run/docker.sock"
+name: gcp-assistant
+x-backend: &backend
+  image: gcp-assistant-backend:local
+  build:
+    context: .
+    dockerfile: api/Dockerfile
+  init: true
+  environment: &environment
+    DATA_DIR: /data
+    HF_HOME: /models
+    HF_HUB_DISABLE_TELEMETRY: "1"
+    QDRANT_URL: http://qdrant:6333
+    MCP_URL: http://mcp:8001/mcp
+    COLLECTION_NAME: ${COLLECTION_NAME:-gcp_docs_v2}
+    EMBEDDING_MODEL: ${EMBEDDING_MODEL:-intfloat/multilingual-e5-small}
+    RERANKER_MODEL: ${RERANKER_MODEL:-cross-encoder/mmarco-mMiniLMv2-L12-H384-v1}
+  volumes:
+    - documents:/data
+    - models:/models
+  networks: [backend]
 
+services:
   qdrant:
-    image: qdrant/qdrant:latest
-    restart: always
-    container_name: qdrant
-    ports:
-      - 6333:6333
-      - 6334:6334
-    configs:
-      - source: qdrant_config
-        target: /qdrant/config/production.yaml
+    image: qdrant/qdrant:v1.17.0
+    restart: unless-stopped
     volumes:
-      - ./qdrant_data:/qdrant/storage
+      - vectors:/qdrant/storage
+    networks: [backend]
+
+  mcp:
+    <<: *backend
+    command: ["python", "-m", "demo_mcp.server"]
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8001/health', timeout=3)"]
+      interval: 15s
+      timeout: 5s
+      start_period: 20s
+      retries: 4
 
   api:
-    build:
-      context: .
-      dockerfile: api/Dockerfile
-    container_name: gcp-api
-    ports:
-      - "8000:8000"
-    env_file:
-      - .env
+    <<: *backend
+    environment:
+      <<: *environment
+      GROQ_API_KEY: ${GROQ_API_KEY:-}
+      GROQ_MODEL: ${GROQ_MODEL:-openai/gpt-oss-20b}
+      API_PLAN: ${API_PLAN:-free}
+      ALLOW_PAID_API: ${ALLOW_PAID_API:-false}
+      MAX_CONTEXT_CHARS: ${MAX_CONTEXT_CHARS:-12000}
+      MAX_OUTPUT_TOKENS: ${MAX_OUTPUT_TOKENS:-1000}
+      REQUEST_TIMEOUT: ${REQUEST_TIMEOUT:-45}
+      MAX_HISTORY_MESSAGES: ${MAX_HISTORY_MESSAGES:-6}
+      RETRIEVAL_K: ${RETRIEVAL_K:-5}
+      MIN_RELEVANCE_SCORE: ${MIN_RELEVANCE_SCORE:-0.30}
     depends_on:
-      - localstack
-      - qdrant
+      qdrant:
+        condition: service_started
+      mcp:
+        condition: service_healthy
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health/live', timeout=3)"]
+      interval: 15s
+      timeout: 5s
+      start_period: 30s
+      retries: 4
+
+  ingest:
+    <<: *backend
+    entrypoint: ["python", "main.py"]
+    command: ["setup"]
+    profiles: [tools]
+    depends_on:
+      qdrant:
+        condition: service_started
+    environment:
+      <<: *environment
+      CRAWL_MAX_PAGES: ${CRAWL_MAX_PAGES:-25}
+      CRAWL_DELAY: ${CRAWL_DELAY:-1}
 
   frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
-    container_name: gcp-frontend
+    build: ./frontend
+    restart: unless-stopped
     ports:
-      - "80:80"
+      - "${HTTP_BIND:-127.0.0.1}:${HTTP_PORT:-8080}:80"
     depends_on:
-      - api
+      api:
+        condition: service_healthy
+    networks: [backend]
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://127.0.0.1/healthz"]
+      interval: 15s
+      timeout: 5s
+      retries: 4
 
-configs:
-  qdrant_config:
-    content: |
-      log_level: INFO
+networks:
+  backend:
+
+volumes:
+  documents:
+  vectors:
+  models:

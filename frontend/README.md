@@ -1,16 +1,34 @@
-# React + Vite
+# Interface do GCP AI Assistant
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+React, Vite e NGINX. A identidade escura com vermelho e dourado acompanha estados reais de operação, Markdown seguro, fontes oficiais e consultas MCP demonstrativas.
 
-Currently, two official plugins are available:
+## Desenvolvimento
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Use Node.js 22.22.2 ou superior compatível e npm:
 
-## React Compiler
+```sh
+npm ci
+npm run dev
+npm test
+npm run lint
+npm run build
+```
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+O servidor Vite encaminha `/api/*` para o backend em `127.0.0.1:8000` durante o desenvolvimento. No Compose, o NGINX encaminha essas rotas para `api:8000`. O navegador usa exclusivamente URLs relativas: nenhuma chave de API faz parte do bundle ou do armazenamento do navegador.
 
-## Expanding the ESLint configuration
+## Comportamento
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- Consulta `/api/health/ready` ao abrir e a cada 30 segundos; aceita HTTP 503 com diagnóstico de preparação pendente.
+- Envia `/api/ask/` com até seis mensagens anteriores, limitadas a 2000 caracteres por mensagem, e pergunta de até 2000 caracteres.
+- Não repete chamadas automaticamente. HTTP 429 bloqueia novos envios durante o `Retry-After` informado; sem indicação válida, espera 60 segundos.
+- Cancela chamadas de conversa após 60 segundos; erros mantêm a pergunta no campo para revisão e não entram no histórico enviado ao modelo.
+- Markdown não executa HTML. Imagens remotas são omitidas e links ficam limitados a HTTPS nos domínios oficiais Google Cloud/Google AI.
+- Mostra fontes com data de coleta e identifica resultados simulados do MCP.
+
+## Container
+
+O Dockerfile compila os arquivos estáticos e os serve no NGINX. O endpoint `/healthz` verifica o frontend. A configuração de proxy, limites e fallback da SPA está em `nginx.conf`.
+
+## Testes
+
+Vitest + Testing Library verificam saúde, configuração ausente, roteamento relativo, histórico, fontes, Markdown seguro, sinalização de simulação, cota esgotada e limpeza da conversa. Os testes usam API simulada e não consomem tokens.

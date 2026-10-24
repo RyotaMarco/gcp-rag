@@ -1,0 +1,12 @@
+{
+  "content": "# Cloud SQL\n\n## Managed relational databases\n\nCloud SQL is a managed relational database service for supported database engines. Database instances can use automated backups and high availability configurations. Bancos relacionais gerenciados oferecem backups e opções de alta disponibilidade.",
+  "metadata": {
+    "source_url": "https://docs.cloud.google.com/sql/docs/introduction",
+    "title": "Cloud SQL",
+    "product": "Cloud SQL",
+    "section": "Managed relational databases",
+    "crawled_at": null,
+    "fixture": true,
+    "fixture_note": "Hand-authored paraphrase for testing; not a scraped or current documentation snapshot."
+  }
+}

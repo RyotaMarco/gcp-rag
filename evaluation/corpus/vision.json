@@ -1,0 +1,12 @@
+{
+  "content": "# Cloud Vision API\n\n## Optical character recognition\n\nCloud Vision API detects text in images using optical character recognition. TEXT_DETECTION and DOCUMENT_TEXT_DETECTION support different image text layouts. OCR extrai texto de imagens e documentos digitalizados.",
+  "metadata": {
+    "source_url": "https://docs.cloud.google.com/vision/docs/ocr",
+    "title": "Cloud Vision API",
+    "product": "Cloud Vision API",
+    "section": "Optical character recognition",
+    "crawled_at": null,
+    "fixture": true,
+    "fixture_note": "Hand-authored paraphrase for testing; not a scraped or current documentation snapshot."
+  }
+}

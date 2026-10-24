@@ -1,0 +1,12 @@
+{
+  "content": "# Dialogflow CX\n\n## Flows and pages\n\nDialogflow CX models conversations with flows, pages and state transitions. Intents match user expressions and fulfillment invokes actions. Fluxos e páginas representam estados de conversa; intenções identificam o pedido do usuário.",
+  "metadata": {
+    "source_url": "https://docs.cloud.google.com/dialogflow/cx/docs/basics",
+    "title": "Dialogflow CX",
+    "product": "Dialogflow CX",
+    "section": "Flows and pages",
+    "crawled_at": null,
+    "fixture": true,
+    "fixture_note": "Hand-authored paraphrase for testing; not a scraped or current documentation snapshot."
+  }
+}

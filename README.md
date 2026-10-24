@@ -1,252 +1,109 @@
-# GCP AI Copilot — RAG + MCP
+# GCP AI Assistant
 
-> An AI Engineering portfolio project that combines **Retrieval-Augmented Generation (RAG)** over official GCP documentation with a **Model Context Protocol (MCP)** server for real-time cloud resource interaction.
+Assistente instalável para perguntas técnicas sobre Google Cloud, com RAG sobre documentação oficial, fontes verificáveis e ferramentas MCP de demonstração. Interface em português; perguntas em português e inglês.
 
----
+**Stack:** React + NGINX → FastAPI → Qdrant/embeddings multilíngues locais → Groq. Um servidor MCP separado consulta recursos fictícios. Docker Compose mantém documentos, vetores e modelos em volumes persistentes. A aplicação inicia sem índice e sem chave; informa o que falta e permite testar o MCP.
 
-## Overview
+## Instalação
 
-This project implements an AI assistant for Google Cloud Platform engineers capable of:
-
-1. **Answering technical questions** using official GCP documentation via semantic search
-2. **Interacting with real cloud resources** (list VMs, buckets, datasets) via MCP — *in progress*
-
-Built to demonstrate end-to-end AI Engineering skills across scraping, storage, embedding, retrieval, orchestration, and cloud integration.
-
----
-
-## Architecture
-
-```
-User
-  ↓
-Frontend (React + NGINX)
-  ↓
-FastAPI (POST /ask)
-  ↓
-RAG Pipeline
-├── Retriever → Qdrant (semantic search)
-│       ↓
-│   Top-K chunks + metadata
-│       ↓
-└── Generator → Groq/Llama (LLM response)
-
-Background Pipeline (--setup flag)
-├── Scraping   → crawl4ai → LocalStack S3 (raw bucket)
-├── Chunking   → LangChain MarkdownHeaderTextSplitter
-├── Embedding  → sentence-transformers/all-MiniLM-L6-v2
-└── Indexing   → Qdrant (2594 vectors)
-```
-
----
-
-## Tech Stack
-
-| Layer | Technology |
-|---|---|
-| Scraping | crawl4ai + BFSDeepCrawlStrategy |
-| Object Storage | LocalStack S3 (S3-compatible, two buckets: raw/processed) |
-| Chunking | LangChain MarkdownHeaderTextSplitter + RecursiveCharacterTextSplitter |
-| Embeddings | sentence-transformers/all-MiniLM-L6-v2 (local, no API required) |
-| Vector Store | Qdrant |
-| LLM | Groq — llama-3.3-70b-versatile |
-| Orchestration | LangChain (LCEL) |
-| API | FastAPI + Uvicorn |
-| Frontend | React + Vite + NGINX |
-| Infrastructure | Docker Compose (4 containers) |
-
----
-
-## Project Structure
-
-```
-gcp-rag/
-├── api/
-│   ├── main.py              # FastAPI endpoints + CORS
-│   └── Dockerfile
-├── config/
-│   └── config.py            # Environment configuration (fail-fast pattern)
-├── frontend/
-│   ├── src/
-│   │   └── App.jsx          # React chat interface (anime noir aesthetic)
-│   └── Dockerfile
-├── rag/
-│   ├── chunking.py          # Markdown chunking strategy
-│   ├── embedding.py         # HuggingFace embedding wrapper
-│   ├── generator.py         # LLM response generation (LCEL pipeline)
-│   ├── indexer.py           # Qdrant indexing
-│   ├── ingestion.py         # Pipeline orchestration
-│   ├── pipeline.py          # RAG pipeline (retrieve → generate)
-│   └── retriever.py         # Qdrant semantic search
-├── scraping/
-│   └── scraping.py          # GCP docs crawler (BFS + URL filtering)
-├── storage/
-│   └── bucket_storage.py    # S3/LocalStack storage layer
-├── docker-compose.yml
-├── main.py                  # Entry point (--setup flag for ingestion)
-├── requirements.txt
-└── .env.example
-```
-
----
-
-## Getting Started
-
-### Prerequisites
-
-- Docker Desktop
-- Python 3.11+ (for running setup pipeline)
-- Groq API key — free at [console.groq.com](https://console.groq.com)
-- LocalStack Auth Token — free at [localstack.cloud](https://localstack.cloud)
-
-### 1. Clone and configure
+Requisitos: Git, Docker Engine/Desktop com Compose v2 e conexão para baixar imagens, modelos e documentação. A geração ocorre por API; GPU não é obrigatória. Reserve memória e disco para PyTorch, embeddings e reranker; o primeiro download é maior que os seguintes.
 
 ```bash
-git clone https://github.com/your-username/gcp-rag
+git clone https://github.com/RyotaMarco/gcp-rag.git
 cd gcp-rag
 cp .env.example .env
-# Fill in your API keys in .env
+# Windows PowerShell: Copy-Item .env.example .env
 ```
 
-### 2. Start infrastructure
+Edite `.env`: configure `GROQ_API_KEY` de uma conta Groq Free sua. O padrão `GROQ_MODEL=openai/gpt-oss-20b` usa exclusivamente a API da Groq, sem conta OpenAI. Não coloque a chave no código, frontend ou Git. Sem chave, as ferramentas MCP demonstrativas continuam disponíveis.
 
 ```bash
-docker compose up -d
+docker compose config --quiet
+docker compose up --build --detach --wait
 ```
 
-### 3. Run the scraping and ingestion pipeline
+Abra [http://localhost:8080](http://localhost:8080). A porta é configurável em `HTTP_PORT`. O bind padrão `127.0.0.1` atende a instalação local; API, MCP e Qdrant não publicam portas próprias. A stack é instalável em um host escolhido pelo operador, sem depender do computador do autor.
+
+### Preparar a documentação
+
+Coleta e indexação são comandos de manutenção; nunca rodam no startup da API.
 
 ```bash
-pip install -r requirements.txt
-python main.py --setup
+# Comece por um serviço e uma coleta limitada:
+docker compose --profile tools run --rm ingest setup --services "Vertex AI" --max-pages 10
+# Ou colete todos os serviços configurados, respeitando limites e robots.txt:
+docker compose --profile tools run --rm ingest setup
 ```
 
-This will:
-- Scrape 24 GCP AI/ML documentation endpoints
-- Chunk and embed all documents locally
-- Index ~2594 vectors into Qdrant
-- Move processed files to the processed S3 bucket
+A primeira ingestão baixa os modelos locais no volume `models`. O crawler preserva listas e código, limita profundidade/páginas, respeita robots.txt e só admite fontes oficiais permitidas. Uma falha é registrada e o comando retorna erro; consulte o resumo antes de considerar a preparação concluída.
 
-### 4. Access the interface
-
-Open [http://localhost:80](http://localhost:80) in your browser.
-
-The FastAPI docs are available at [http://localhost:8000/docs](http://localhost:8000/docs).
-
----
-
-## Environment Variables
+A prontidão total só aparece quando há índice compatível, configuração de provedor, Qdrant e MCP disponíveis. Chave configurada não significa que sua autenticação/cota foi testada: isso só é confirmado ao gerar uma resposta real.
 
 ```bash
-# LocalStack (S3)
-LOCALSTACK_AUTH_TOKEN=your_token
-LOCALSTACK_URL=http://localhost:4566
-GCP_DOCS_BUCKET_NAME_RAW=gcp-doc-raw
-GCP_DOCS_BUCKET_NAME_PROCESSED=gcp-doc-processed
-AWS_ACCESS_KEY_ID=test
-AWS_SECRET_ACCESS_KEY=test
-AWS_DEFAULT_REGION=us-east-1
-
-# Groq
-GROQ_API_KEY=your_groq_api_key
-
-# Qdrant
-QDRANT_URL=http://localhost:6333
+curl http://localhost:8080/api/health/live
+curl http://localhost:8080/api/health/ready
+curl -X POST http://localhost:8080/api/ask/ -H "Content-Type: application/json" -d '{"question":"Como funciona o Vertex AI?"}'
 ```
 
----
+`/health/ready` devolve HTTP 503 enquanto faltar algum requisito. Isso não derruba a aplicação. A interface apresenta os motivos e a contagem real do índice.
 
-## API
+## Respostas e ferramentas
 
-```bash
-curl -X POST http://localhost:8000/ask/ \
-  -H "Content-Type: application/json" \
-  -d '{"question": "How does Vertex AI handle model versioning?"}'
-```
+- Embeddings multilíngues `intfloat/multilingual-e5-small`, busca semântica + BM25 e reordenação local com `cross-encoder/mmarco-mMiniLMv2-L12-H384-v1`.
+- Trechos preservam URL, produto, título, seção e data de coleta. Respostas técnicas citam identificadores associados a fontes oficiais.
+- Contexto e histórico têm limites configuráveis; perguntas curtas de continuidade recuperam contexto anterior do usuário.
+- Quando faltam evidências, o assistente informa a limitação ou pede esclarecimento. A validação de referências reduz citações inventadas, mas não prova que cada afirmação esteja correta: revise o relatório de avaliação.
+- Documentos e histórico são tratados como dados não confiáveis, sem execução de instruções encontradas neles.
 
-Response:
+O MCP é um servidor real, com protocolo MCP e ferramentas somente de leitura. **Os dados são sempre fictícios**; não há credencial GCP nem acesso à sua conta de nuvem.
+
+Exemplos: `Liste os buckets do projeto demo.`, `List the virtual machines in the demo project.`, `Liste os datasets do BigQuery no projeto demo.` O resultado é marcado como demonstração. Perguntas que pedem recursos e explicação combinam MCP com RAG quando a documentação indexada sustenta a explicação.
+
+### API
+
+A API mantém `POST /ask/` e `answer`. Pelo NGINX, use `/api/ask/`.
+
 ```json
 {
-  "answer": "Vertex AI Model Registry allows you to..."
+  "question": "E como funcionam as versões?",
+  "history": [
+    {"role": "user", "content": "Explique o Vertex AI Model Registry."},
+    {"role": "assistant", "content": "Ele organiza modelos registrados."}
+  ]
 }
 ```
 
----
+A resposta acrescenta `sources`, `mode` e `simulated`. Cada fonte tem `id`, `title`, `url`, `product`, `section` e `crawled_at`. Os modos são `rag`, `mcp`, `hybrid`, `clarification` e `insufficient_evidence`. Erros operacionais usam `detail.code` e `detail.message`; limites incluem `Retry-After`. A documentação interativa está em `/api/docs`.
 
-## GCP Services Covered
+## Custos e configuração
 
-24 GCP AI/ML services across 8 categories:
+Não há serviços pagos obrigatórios de armazenamento, busca ou embeddings. A aplicação não contrata hospedagem nem garante hospedagem gratuita. Hardware, energia e servidor são do operador. Na Groq Free, o uso é sujeito às cotas e aos modelos disponíveis para sua conta.
 
-- **ML Platform** — Vertex AI, Vertex AI Generative AI
-- **Generative AI** — Gemini API
-- **Conversational AI** — Dialogflow CX/ES, Agent Builder, Agent Assist, Contact Center AI
-- **Vision** — Cloud Vision API, Video Intelligence API, AutoML Vision, Vertex AI Vision
-- **Natural Language** — Natural Language API, Cloud Translation, Healthcare NL AI
-- **Speech** — Speech-to-Text, Text-to-Speech
-- **Document AI** — Document AI
-- **ML Infrastructure** — Cloud TPU, Deep Learning Containers, Deep Learning VM
-- **Data for ML** — Timeseries Insights API, Recommendations AI, Vertex AI Search for Retail
+- O código não faz upgrade de plano nem troca automaticamente para provedor/modelo pago.
+- HTTP 429 interrompe a geração; o tempo informado pelo provedor é respeitado e exibido. Não há retentativas automáticas.
+- Para declarar uso pago, configure `API_PLAN=paid` **e** `ALLOW_PAID_API=true`. Essa dupla configuração explicita a intenção do operador.
+- **O aplicativo não consegue descobrir o plano de cobrança de uma chave.** `API_PLAN=free` não impede cobrança se a chave já pertencer a uma conta paga. Confirme o plano no console do provedor.
+- Não há login multiusuário nem gestão de chaves no navegador. Hospedagem pública compartilhada e controle de usuários estão fora desta versão.
 
----
+Consulte [limites da Groq](https://console.groq.com/docs/rate-limits), [modelos](https://console.groq.com/docs/models) e [cobrança](https://console.groq.com/docs/billing-faqs). Não presuma as antigas cotas fixas descritas na versão inicial deste projeto.
 
-## Roadmap
+As opções estão em `.env.example`: modelo, limites de contexto/saída/histórico, timeout, quantidade de resultados, limiar de relevância, páginas e intervalo de coleta. O backend lê os segredos. Após editar o ambiente, recrie os contêineres com `docker compose up -d`.
 
-### Completed ✅
+## Atualização, operação e testes
 
-- [x] Web scraping of GCP AI/ML documentation (crawl4ai + BFS + URL filtering)
-- [x] Raw document storage in LocalStack S3 (two-bucket pipeline control)
-- [x] Markdown chunking with header-aware splitting
-- [x] Local embedding with sentence-transformers (no API rate limits)
-- [x] Vector indexing in Qdrant (2594 chunks)
-- [x] RAG pipeline (semantic retrieval + LLM generation via LCEL)
-- [x] FastAPI REST endpoint with CORS support
-- [x] React frontend with anime noir aesthetic
-- [x] Full Docker Compose setup (4 containers)
+O [guia operacional](docs/OPERATIONS.md) descreve atualização incremental, reconstrução, backup, restauração e falhas comuns.
 
-### Planned 📋
+```bash
+python -m pip install -r requirements-dev.txt
+python -m pytest -q
+python -m evaluation.run --mode fixture --output evaluation-report.json
+cd frontend
+npm ci
+npm test -- --run
+npm run lint
+npm run build
+```
 
-- [ ] MCP Server for real-time GCP resource interaction
-  - [ ] Cloud Storage — list buckets, check public access
-  - [ ] Compute Engine — list active VMs
-  - [ ] BigQuery — list datasets, check table existence
-- [ ] Intent Router (RAG vs MCP decision)
-- [ ] Hybrid reasoning (RAG + MCP combined responses)
-- [ ] RAG evaluation metrics (Precision@k, context relevance)
-- [ ] LangSmith observability integration
-- [ ] Re-ranking and multi-query retrieval improvements
+O benchmark tem 42 casos em português e inglês e gate de Hit@5 de 85% nas perguntas respondíveis. `fixture` usa modelos de teste determinísticos: **não mede qualidade de modelos reais**. `--mode real` executa os modelos locais sobre o mesmo corpus pequeno e curado. A comparação é busca semântica versus híbrida com o mesmo embedding. Veja [metodologia e limites](evaluation/README.md) e [relatório de validação](docs/TEST_REPORT.md).
 
----
-
-## Design Decisions
-
-**Why LocalStack over MongoDB for raw storage?**
-Object storage (S3) is the industry standard for data lake architectures. Two buckets (`raw/` and `processed/`) provide clear pipeline state control without requiring a separate database. In production this would migrate to GCS or AWS S3 with no code changes beyond credentials.
-
-**Why local embeddings (all-MiniLM-L6-v2)?**
-Eliminates external dependencies, rate limits, and costs. The LangChain abstraction makes swapping to any embedding model a one-line change — demonstrating architectural flexibility.
-
-**Why LangChain + LCEL?**
-Higher visibility in AI Engineering job postings. The declarative pipeline pattern (`prompt | model`) demonstrates modern LLM orchestration skills valued by hiring teams.
-
-**Why Groq/Llama over OpenAI or Gemini?**
-Generous free tier (14,400 RPD), no credit card required, and demonstrates vendor-agnostic LLM integration — a key skill for AI Engineering roles.
-
----
-
-## Production Considerations
-
-This project is designed for local development and portfolio demonstration. In production:
-
-| Component | Local | Production |
-|---|---|---|
-| Object Storage | LocalStack | AWS S3 / Google Cloud Storage |
-| Embeddings | all-MiniLM-L6-v2 | Vertex AI text-embedding-004 |
-| LLM | Groq/Llama | Vertex AI Gemini / OpenAI GPT-4 |
-| Infrastructure | Docker Compose | Kubernetes / Cloud Run |
-| Pipeline State | S3 buckets | DynamoDB / Cloud Spanner |
-
----
-
-## Author
-
-Built as an AI Engineering portfolio project demonstrating end-to-end LLM system design — from data ingestion to dockerized production-ready API with frontend.
+O workflow `.github/workflows/ci.yml` testa backend, frontend e instalação real via Compose sem segredo de API. O smoke verifica índice vazio, ingestão, MCP, reingestão e persistência após reinício. Geração Groq real exige credencial e é reportada separadamente; os testes automatizados não fazem chamadas faturáveis.
