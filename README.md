@@ -1,6 +1,6 @@
 # GCP AI Assistant
 
-Assistente instalável para perguntas técnicas sobre Google Cloud, com RAG sobre documentação oficial, fontes verificáveis e ferramentas MCP de demonstração. Interface em português; perguntas em português e inglês.
+Assistente instalável para perguntas técnicas sobre Google Cloud, com RAG sobre documentação oficial, fontes verificáveis e ferramentas MCP de demonstração. Interface em inglês e português; perguntas nos dois idiomas.
 
 **Stack:** React + NGINX → FastAPI → Qdrant/embeddings multilíngues locais → Groq. Um servidor MCP separado consulta recursos fictícios. Docker Compose mantém documentos, vetores e modelos em volumes persistentes. A aplicação inicia sem índice e sem chave; informa o que falta e permite testar o MCP.
 
@@ -83,7 +83,7 @@ Não há serviços pagos obrigatórios de armazenamento, busca ou embeddings. A 
 - HTTP 429 interrompe a geração; o tempo informado pelo provedor é respeitado e exibido. Não há retentativas automáticas.
 - Para declarar uso pago, configure `API_PLAN=paid` **e** `ALLOW_PAID_API=true`. Essa dupla configuração explicita a intenção do operador.
 - **O aplicativo não consegue descobrir o plano de cobrança de uma chave.** `API_PLAN=free` não impede cobrança se a chave já pertencer a uma conta paga. Confirme o plano no console do provedor.
-- Não há login multiusuário nem gestão de chaves no navegador. Hospedagem pública compartilhada e controle de usuários estão fora desta versão.
+- A instalação Docker não oferece login multiusuário nem gestão de chaves no navegador. A modalidade pública Cloudflare acrescenta proteção anti-bot e limites próprios, descritos no guia da demo.
 
 Consulte [limites da Groq](https://console.groq.com/docs/rate-limits), [modelos](https://console.groq.com/docs/models) e [cobrança](https://console.groq.com/docs/billing-faqs). Não presuma as antigas cotas fixas descritas na versão inicial deste projeto.
 
@@ -107,3 +107,13 @@ npm run build
 O benchmark tem 42 casos em português e inglês e gate de Hit@5 de 85% nas perguntas respondíveis. `fixture` usa modelos de teste determinísticos: **não mede qualidade de modelos reais**. `--mode real` executa os modelos locais sobre o mesmo corpus pequeno e curado. A comparação é busca semântica versus híbrida com o mesmo embedding. Veja [metodologia e limites](evaluation/README.md) e [relatório de validação](docs/TEST_REPORT.md).
 
 O workflow `.github/workflows/ci.yml` testa backend, frontend e instalação real via Compose sem segredo de API. O smoke verifica índice vazio, ingestão, MCP, reingestão e persistência após reinício. Geração Groq real exige credencial e é reportada separadamente; os testes automatizados não fazem chamadas faturáveis.
+
+## Demo pública na Cloudflare
+
+O repositório também inclui uma modalidade Cloudflare em `cloudflare/`, mantendo a instalação Docker descrita acima. Ela usa React com a identidade visual do portfólio, seletor EN/PT, Workers AI, busca híbrida Vectorize + D1 FTS5 e MCP privado com recursos fictícios. O frontend não recebe chaves de IA ou credenciais GCP.
+
+A versão de documentação preparada para a demo contém **29 páginas oficiais e 467 trechos**, distribuídos entre Vertex AI, Cloud Storage, BigQuery, Compute Engine, IAM e Cloud Run. Os textos de `evaluation/corpus` continuam exclusivos dos testes; não são a base pública.
+
+Consultas públicas exigem Turnstile validado no servidor e admissão em um contador central: três por minuto/IP, dez por dia/IP, cem por dia no total e duas simultâneas. Preview tem teto adicional de dez consultas, dentro das mesmas cem. A demo fica desabilitada até concluir a avaliação real e a revisão de segurança/qualidade. Cotas de IA são compartilhadas com outros usos da conta; plano gratuito não significa uso ilimitado.
+
+Consulte o [guia da modalidade Cloudflare](docs/CLOUDFLARE-DEMO.md) para configuração, preparo do corpus, avaliação, publicação, privacidade e rollback. Os testes automatizados dessa modalidade não provisionam recursos nem chamam IA real.

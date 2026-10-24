@@ -1,0 +1,786 @@
+{
+  "mode": "real-cloudflare-retrieval",
+  "createdAt": "2026-10-24T21:42:09.906Z",
+  "target": "preview",
+  "corpusVersion": "docs-d91e5f5e46cf",
+  "manifestSha": "d91e5f5e46cf68e2936d71995e4cbebbe4a14d9ef99ab0b6243df3a3806f658c",
+  "casesSha": "f4d7a4107b8837d7c690df477d7661f8d06e4b42246feb9067e261b712908741",
+  "implementationSha": "55846b51830e6731ee367d76fd9838e00de83727a53ddbedca0686271aa417df",
+  "embeddingModel": "@cf/baai/bge-m3",
+  "generationModel": "@cf/meta/llama-3.1-8b-instruct-fp8-fast",
+  "ragInferenceBudget": {
+    "embeddingCalls": 1,
+    "selectionCalls": 1,
+    "selectionMaxOutputTokens": 32,
+    "writerCalls": 1,
+    "writerMaxOutputTokens": 512,
+    "retries": 0
+  },
+  "minimumDenseScore": 0.45,
+  "retrieval": "Vectorize cosine + D1 FTS5/BM25, RRF k=60, top5, no crossencoder",
+  "gate": {
+    "minimumHitAt5PerLocale": 0.85,
+    "retrievalPassed": true,
+    "sampleOutputPassed": true,
+    "passed": true
+  },
+  "metrics": {
+    "en": {
+      "questions": 18,
+      "hits": 18,
+      "hitAt5": 1,
+      "mrr": 0.8907407407407406
+    },
+    "pt": {
+      "questions": 18,
+      "hits": 16,
+      "hitAt5": 0.8888888888888888,
+      "mrr": 0.7277777777777779
+    }
+  },
+  "results": [
+    {
+      "id": "vertex-registry-en",
+      "locale": "en",
+      "question": "What does the model registry organize in Vertex AI?",
+      "expected_urls": [
+        "https://docs.cloud.google.com/gemini-enterprise-agent-platform/machine-learning/model-registry/introduction"
+      ],
+      "retrieved_urls": [
+        "https://docs.cloud.google.com/gemini-enterprise-agent-platform/machine-learning/model-registry/introduction",
+        "https://docs.cloud.google.com/gemini-enterprise-agent-platform/machine-learning/model-registry/introduction",
+        "https://docs.cloud.google.com/gemini-enterprise-agent-platform/machine-learning",
+        "https://docs.cloud.google.com/gemini-enterprise-agent-platform/machine-learning",
+        "https://docs.cloud.google.com/gemini-enterprise-agent-platform/machine-learning/general/deployment"
+      ],
+      "hit": true,
+      "reciprocal_rank": 1
+    },
+    {
+      "id": "vertex-deploy-en",
+      "locale": "en",
+      "question": "How is a trained Vertex AI model made available for online prediction?",
+      "expected_urls": [
+        "https://docs.cloud.google.com/gemini-enterprise-agent-platform/machine-learning/general/deployment",
+        "https://docs.cloud.google.com/gemini-enterprise-agent-platform/machine-learning/predictions"
+      ],
+      "retrieved_urls": [
+        "https://docs.cloud.google.com/gemini-enterprise-agent-platform/machine-learning/predictions",
+        "https://docs.cloud.google.com/gemini-enterprise-agent-platform/machine-learning/general/deployment",
+        "https://docs.cloud.google.com/gemini-enterprise-agent-platform/machine-learning/predictions",
+        "https://docs.cloud.google.com/gemini-enterprise-agent-platform/machine-learning/general/deployment",
+        "https://docs.cloud.google.com/gemini-enterprise-agent-platform/machine-learning/general/deployment"
+      ],
+      "hit": true,
+      "reciprocal_rank": 1
+    },
+    {
+      "id": "vertex-generative-en",
+      "locale": "en",
+      "question": "What is generative AI and which kinds of content can a model generate?",
+      "expected_urls": [
+        "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/beginners-guide"
+      ],
+      "retrieved_urls": [
+        "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/beginners-guide",
+        "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/beginners-guide",
+        "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/beginners-guide",
+        "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/beginners-guide",
+        "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/beginners-guide"
+      ],
+      "hit": true,
+      "reciprocal_rank": 1
+    },
+    {
+      "id": "vertex-registry-pt",
+      "locale": "pt",
+      "question": "Para que serve o registro de modelos no Vertex AI?",
+      "expected_urls": [
+        "https://docs.cloud.google.com/gemini-enterprise-agent-platform/machine-learning/model-registry/introduction"
+      ],
+      "retrieved_urls": [
+        "https://docs.cloud.google.com/gemini-enterprise-agent-platform/machine-learning/general/deployment",
+        "https://docs.cloud.google.com/gemini-enterprise-agent-platform/machine-learning/predictions",
+        "https://docs.cloud.google.com/gemini-enterprise-agent-platform/machine-learning/predictions",
+        "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/beginners-guide",
+        "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/beginners-guide"
+      ],
+      "hit": false,
+      "reciprocal_rank": 0
+    },
+    {
+      "id": "vertex-deploy-pt",
+      "locale": "pt",
+      "question": "Como disponibilizar um modelo treinado do Vertex AI para predições online?",
+      "expected_urls": [
+        "https://docs.cloud.google.com/gemini-enterprise-agent-platform/machine-learning/general/deployment",
+        "https://docs.cloud.google.com/gemini-enterprise-agent-platform/machine-learning/predictions"
+      ],
+      "retrieved_urls": [
+        "https://docs.cloud.google.com/gemini-enterprise-agent-platform/machine-learning/general/deployment",
+        "https://docs.cloud.google.com/gemini-enterprise-agent-platform/machine-learning/general/deployment",
+        "https://docs.cloud.google.com/gemini-enterprise-agent-platform/machine-learning/predictions",
+        "https://docs.cloud.google.com/gemini-enterprise-agent-platform/machine-learning/general/deployment",
+        "https://docs.cloud.google.com/gemini-enterprise-agent-platform/machine-learning/general/deployment"
+      ],
+      "hit": true,
+      "reciprocal_rank": 1
+    },
+    {
+      "id": "vertex-generative-pt",
+      "locale": "pt",
+      "question": "O que é IA generativa e quais tipos de conteúdo ela pode produzir?",
+      "expected_urls": [
+        "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/beginners-guide"
+      ],
+      "retrieved_urls": [
+        "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/beginners-guide",
+        "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/beginners-guide",
+        "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/beginners-guide",
+        "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/beginners-guide",
+        "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/beginners-guide"
+      ],
+      "hit": true,
+      "reciprocal_rank": 1
+    },
+    {
+      "id": "storage-buckets-en",
+      "locale": "en",
+      "question": "What is the relationship between buckets and objects in Cloud Storage?",
+      "expected_urls": [
+        "https://docs.cloud.google.com/storage/docs/buckets",
+        "https://docs.cloud.google.com/storage/docs/objects"
+      ],
+      "retrieved_urls": [
+        "https://docs.cloud.google.com/storage/docs/introduction",
+        "https://docs.cloud.google.com/storage/docs/introduction",
+        "https://docs.cloud.google.com/storage/docs/objects",
+        "https://docs.cloud.google.com/storage/docs/introduction",
+        "https://docs.cloud.google.com/storage/docs/objects"
+      ],
+      "hit": true,
+      "reciprocal_rank": 0.3333333333333333
+    },
+    {
+      "id": "storage-access-en",
+      "locale": "en",
+      "question": "How does IAM control access to a Cloud Storage bucket?",
+      "expected_urls": [
+        "https://docs.cloud.google.com/storage/docs/access-control/iam"
+      ],
+      "retrieved_urls": [
+        "https://docs.cloud.google.com/storage/docs/access-control/iam",
+        "https://docs.cloud.google.com/storage/docs/access-control/iam",
+        "https://docs.cloud.google.com/storage/docs/access-control/iam",
+        "https://docs.cloud.google.com/storage/docs/introduction",
+        "https://docs.cloud.google.com/storage/docs/access-control/iam"
+      ],
+      "hit": true,
+      "reciprocal_rank": 1
+    },
+    {
+      "id": "storage-scaling-en",
+      "locale": "en",
+      "question": "How should Cloud Storage request traffic be increased when approaching a new request rate?",
+      "expected_urls": [
+        "https://docs.cloud.google.com/storage/docs/request-rate"
+      ],
+      "retrieved_urls": [
+        "https://docs.cloud.google.com/storage/docs/request-rate",
+        "https://docs.cloud.google.com/storage/docs/request-rate",
+        "https://docs.cloud.google.com/storage/docs/request-rate",
+        "https://docs.cloud.google.com/storage/docs/request-rate",
+        "https://docs.cloud.google.com/storage/docs/request-rate"
+      ],
+      "hit": true,
+      "reciprocal_rank": 1
+    },
+    {
+      "id": "storage-buckets-pt",
+      "locale": "pt",
+      "question": "Qual é a relação entre buckets e objetos no Cloud Storage?",
+      "expected_urls": [
+        "https://docs.cloud.google.com/storage/docs/buckets",
+        "https://docs.cloud.google.com/storage/docs/objects"
+      ],
+      "retrieved_urls": [
+        "https://docs.cloud.google.com/storage/docs/introduction",
+        "https://docs.cloud.google.com/storage/docs/objects",
+        "https://docs.cloud.google.com/storage/docs/introduction",
+        "https://docs.cloud.google.com/storage/docs/buckets",
+        "https://docs.cloud.google.com/storage/docs/buckets"
+      ],
+      "hit": true,
+      "reciprocal_rank": 0.5
+    },
+    {
+      "id": "storage-access-pt",
+      "locale": "pt",
+      "question": "Como o IAM controla as permissões de acesso a um bucket do Cloud Storage?",
+      "expected_urls": [
+        "https://docs.cloud.google.com/storage/docs/access-control/iam"
+      ],
+      "retrieved_urls": [
+        "https://docs.cloud.google.com/storage/docs/access-control/iam",
+        "https://docs.cloud.google.com/storage/docs/access-control/iam",
+        "https://docs.cloud.google.com/storage/docs/access-control/iam",
+        "https://docs.cloud.google.com/storage/docs/access-control/iam",
+        "https://docs.cloud.google.com/storage/docs/access-control/iam"
+      ],
+      "hit": true,
+      "reciprocal_rank": 1
+    },
+    {
+      "id": "storage-scaling-pt",
+      "locale": "pt",
+      "question": "Como aumentar gradualmente a taxa de requisições de um bucket no Cloud Storage?",
+      "expected_urls": [
+        "https://docs.cloud.google.com/storage/docs/request-rate"
+      ],
+      "retrieved_urls": [
+        "https://docs.cloud.google.com/storage/docs/request-rate",
+        "https://docs.cloud.google.com/storage/docs/buckets",
+        "https://docs.cloud.google.com/storage/docs/introduction",
+        "https://docs.cloud.google.com/storage/docs/buckets",
+        "https://docs.cloud.google.com/storage/docs/buckets"
+      ],
+      "hit": true,
+      "reciprocal_rank": 1
+    },
+    {
+      "id": "bigquery-datasets-en",
+      "locale": "en",
+      "question": "What is a BigQuery dataset and what resources does it contain?",
+      "expected_urls": [
+        "https://docs.cloud.google.com/bigquery/docs/datasets-intro"
+      ],
+      "retrieved_urls": [
+        "https://docs.cloud.google.com/bigquery/docs/datasets-intro",
+        "https://docs.cloud.google.com/bigquery/docs/datasets-intro",
+        "https://docs.cloud.google.com/bigquery/docs/datasets-intro",
+        "https://docs.cloud.google.com/bigquery/docs/datasets-intro",
+        "https://docs.cloud.google.com/bigquery/docs/introduction"
+      ],
+      "hit": true,
+      "reciprocal_rank": 1
+    },
+    {
+      "id": "bigquery-tables-en",
+      "locale": "en",
+      "question": "How do native and external BigQuery tables differ in where data is stored?",
+      "expected_urls": [
+        "https://docs.cloud.google.com/bigquery/docs/tables-intro"
+      ],
+      "retrieved_urls": [
+        "https://docs.cloud.google.com/bigquery/docs/tables-intro",
+        "https://docs.cloud.google.com/bigquery/docs/tables-intro",
+        "https://docs.cloud.google.com/bigquery/docs/introduction",
+        "https://docs.cloud.google.com/bigquery/docs/datasets-intro",
+        "https://docs.cloud.google.com/bigquery/docs/introduction"
+      ],
+      "hit": true,
+      "reciprocal_rank": 1
+    },
+    {
+      "id": "bigquery-queries-en",
+      "locale": "en",
+      "question": "What are the ways to run a query in BigQuery?",
+      "expected_urls": [
+        "https://docs.cloud.google.com/bigquery/docs/query-overview"
+      ],
+      "retrieved_urls": [
+        "https://docs.cloud.google.com/bigquery/docs/query-overview",
+        "https://docs.cloud.google.com/bigquery/docs/query-overview",
+        "https://docs.cloud.google.com/bigquery/docs/introduction",
+        "https://docs.cloud.google.com/bigquery/docs/query-overview",
+        "https://docs.cloud.google.com/bigquery/docs/query-overview"
+      ],
+      "hit": true,
+      "reciprocal_rank": 1
+    },
+    {
+      "id": "bigquery-datasets-pt",
+      "locale": "pt",
+      "question": "O que é um dataset do BigQuery e quais recursos ele organiza?",
+      "expected_urls": [
+        "https://docs.cloud.google.com/bigquery/docs/datasets-intro"
+      ],
+      "retrieved_urls": [
+        "https://docs.cloud.google.com/bigquery/docs/datasets-intro",
+        "https://docs.cloud.google.com/bigquery/docs/datasets-intro",
+        "https://docs.cloud.google.com/bigquery/docs/datasets-intro",
+        "https://docs.cloud.google.com/bigquery/docs/datasets-intro",
+        "https://docs.cloud.google.com/bigquery/docs/datasets-intro"
+      ],
+      "hit": true,
+      "reciprocal_rank": 1
+    },
+    {
+      "id": "bigquery-tables-pt",
+      "locale": "pt",
+      "question": "Qual a diferença entre tabelas nativas e externas do BigQuery quanto ao armazenamento dos dados?",
+      "expected_urls": [
+        "https://docs.cloud.google.com/bigquery/docs/tables-intro"
+      ],
+      "retrieved_urls": [
+        "https://docs.cloud.google.com/bigquery/docs/introduction",
+        "https://docs.cloud.google.com/bigquery/docs/introduction",
+        "https://docs.cloud.google.com/bigquery/docs/introduction",
+        "https://docs.cloud.google.com/bigquery/docs/introduction",
+        "https://docs.cloud.google.com/bigquery/docs/tables-intro"
+      ],
+      "hit": true,
+      "reciprocal_rank": 0.2
+    },
+    {
+      "id": "bigquery-queries-pt",
+      "locale": "pt",
+      "question": "Quais formas existem de executar uma consulta no BigQuery?",
+      "expected_urls": [
+        "https://docs.cloud.google.com/bigquery/docs/query-overview"
+      ],
+      "retrieved_urls": [
+        "https://docs.cloud.google.com/bigquery/docs/introduction",
+        "https://docs.cloud.google.com/bigquery/docs/introduction",
+        "https://docs.cloud.google.com/bigquery/docs/introduction",
+        "https://docs.cloud.google.com/bigquery/docs/introduction",
+        "https://docs.cloud.google.com/bigquery/docs/query-overview"
+      ],
+      "hit": true,
+      "reciprocal_rank": 0.2
+    },
+    {
+      "id": "compute-instances-en",
+      "locale": "en",
+      "question": "What is a virtual machine instance in Compute Engine?",
+      "expected_urls": [
+        "https://docs.cloud.google.com/compute/docs/instances",
+        "https://docs.cloud.google.com/compute/docs/overview"
+      ],
+      "retrieved_urls": [
+        "https://docs.cloud.google.com/compute/docs/instances",
+        "https://docs.cloud.google.com/compute/docs/instances",
+        "https://docs.cloud.google.com/compute/docs/instances/create-start-instance",
+        "https://docs.cloud.google.com/compute/docs/instances",
+        "https://docs.cloud.google.com/compute/docs/overview"
+      ],
+      "hit": true,
+      "reciprocal_rank": 1
+    },
+    {
+      "id": "compute-stop-en",
+      "locale": "en",
+      "question": "What happens when a Compute Engine virtual machine is stopped and restarted?",
+      "expected_urls": [
+        "https://docs.cloud.google.com/compute/docs/instances/stop-start-instance"
+      ],
+      "retrieved_urls": [
+        "https://docs.cloud.google.com/compute/docs/instances/create-start-instance",
+        "https://docs.cloud.google.com/compute/docs/instances",
+        "https://docs.cloud.google.com/compute/docs/overview",
+        "https://docs.cloud.google.com/compute/docs/instances",
+        "https://docs.cloud.google.com/compute/docs/instances/stop-start-instance"
+      ],
+      "hit": true,
+      "reciprocal_rank": 0.2
+    },
+    {
+      "id": "compute-disks-en",
+      "locale": "en",
+      "question": "Which block storage options can be attached to a Compute Engine VM?",
+      "expected_urls": [
+        "https://docs.cloud.google.com/compute/docs/disks"
+      ],
+      "retrieved_urls": [
+        "https://docs.cloud.google.com/compute/docs/disks",
+        "https://docs.cloud.google.com/compute/docs/overview",
+        "https://docs.cloud.google.com/compute/docs/disks",
+        "https://docs.cloud.google.com/compute/docs/disks",
+        "https://docs.cloud.google.com/compute/docs/disks"
+      ],
+      "hit": true,
+      "reciprocal_rank": 1
+    },
+    {
+      "id": "compute-instances-pt",
+      "locale": "pt",
+      "question": "O que é uma instância de máquina virtual no Compute Engine?",
+      "expected_urls": [
+        "https://docs.cloud.google.com/compute/docs/instances",
+        "https://docs.cloud.google.com/compute/docs/overview"
+      ],
+      "retrieved_urls": [
+        "https://docs.cloud.google.com/compute/docs/instances",
+        "https://docs.cloud.google.com/compute/docs/instances",
+        "https://docs.cloud.google.com/compute/docs/overview",
+        "https://docs.cloud.google.com/compute/docs/instances/create-start-instance",
+        "https://docs.cloud.google.com/compute/docs/disks"
+      ],
+      "hit": true,
+      "reciprocal_rank": 1
+    },
+    {
+      "id": "compute-stop-pt",
+      "locale": "pt",
+      "question": "O que acontece ao parar e iniciar novamente uma máquina virtual do Compute Engine?",
+      "expected_urls": [
+        "https://docs.cloud.google.com/compute/docs/instances/stop-start-instance"
+      ],
+      "retrieved_urls": [
+        "https://docs.cloud.google.com/compute/docs/instances",
+        "https://docs.cloud.google.com/compute/docs/instances/create-start-instance",
+        "https://docs.cloud.google.com/compute/docs/instances",
+        "https://docs.cloud.google.com/compute/docs/overview",
+        "https://docs.cloud.google.com/compute/docs/instances/stop-start-instance"
+      ],
+      "hit": true,
+      "reciprocal_rank": 0.2
+    },
+    {
+      "id": "compute-disks-pt",
+      "locale": "pt",
+      "question": "Quais opções de armazenamento em bloco podem ser conectadas a uma VM do Compute Engine?",
+      "expected_urls": [
+        "https://docs.cloud.google.com/compute/docs/disks"
+      ],
+      "retrieved_urls": [
+        "https://docs.cloud.google.com/compute/docs/instances/create-start-instance",
+        "https://docs.cloud.google.com/compute/docs/instances",
+        "https://docs.cloud.google.com/compute/docs/instances",
+        "https://docs.cloud.google.com/compute/docs/instances",
+        "https://docs.cloud.google.com/compute/docs/overview"
+      ],
+      "hit": false,
+      "reciprocal_rank": 0
+    },
+    {
+      "id": "iam-roles-en",
+      "locale": "en",
+      "question": "How do IAM roles relate to individual permissions?",
+      "expected_urls": [
+        "https://docs.cloud.google.com/iam/docs/roles-overview",
+        "https://docs.cloud.google.com/iam/docs/overview"
+      ],
+      "retrieved_urls": [
+        "https://docs.cloud.google.com/storage/docs/access-control/iam",
+        "https://docs.cloud.google.com/iam/docs/overview",
+        "https://docs.cloud.google.com/iam/docs/roles-overview",
+        "https://docs.cloud.google.com/iam/docs/roles-overview",
+        "https://docs.cloud.google.com/iam/docs/roles-overview"
+      ],
+      "hit": true,
+      "reciprocal_rank": 0.5
+    },
+    {
+      "id": "iam-serviceaccounts-en",
+      "locale": "en",
+      "question": "What is a service account and who uses it to access Google Cloud resources?",
+      "expected_urls": [
+        "https://docs.cloud.google.com/iam/docs/service-account-overview"
+      ],
+      "retrieved_urls": [
+        "https://docs.cloud.google.com/iam/docs/service-account-overview",
+        "https://docs.cloud.google.com/iam/docs/service-account-overview",
+        "https://docs.cloud.google.com/iam/docs/best-practices-for-managing-service-account-keys",
+        "https://docs.cloud.google.com/iam/docs/service-account-overview",
+        "https://docs.cloud.google.com/iam/docs/service-account-overview"
+      ],
+      "hit": true,
+      "reciprocal_rank": 1
+    },
+    {
+      "id": "iam-keys-en",
+      "locale": "en",
+      "question": "Why should long-lived service account keys be avoided when alternatives are available?",
+      "expected_urls": [
+        "https://docs.cloud.google.com/iam/docs/best-practices-for-managing-service-account-keys"
+      ],
+      "retrieved_urls": [
+        "https://docs.cloud.google.com/iam/docs/best-practices-for-managing-service-account-keys",
+        "https://docs.cloud.google.com/iam/docs/best-practices-for-managing-service-account-keys",
+        "https://docs.cloud.google.com/iam/docs/best-practices-for-managing-service-account-keys",
+        "https://docs.cloud.google.com/iam/docs/best-practices-for-managing-service-account-keys",
+        "https://docs.cloud.google.com/iam/docs/best-practices-for-managing-service-account-keys"
+      ],
+      "hit": true,
+      "reciprocal_rank": 1
+    },
+    {
+      "id": "iam-roles-pt",
+      "locale": "pt",
+      "question": "Qual é a relação entre papéis e permissões no IAM?",
+      "expected_urls": [
+        "https://docs.cloud.google.com/iam/docs/roles-overview",
+        "https://docs.cloud.google.com/iam/docs/overview"
+      ],
+      "retrieved_urls": [
+        "https://docs.cloud.google.com/iam/docs/overview",
+        "https://docs.cloud.google.com/iam/docs/service-account-overview",
+        "https://docs.cloud.google.com/iam/docs/roles-overview",
+        "https://docs.cloud.google.com/iam/docs/roles-overview",
+        "https://docs.cloud.google.com/run/docs/overview/what-is-cloud-run"
+      ],
+      "hit": true,
+      "reciprocal_rank": 1
+    },
+    {
+      "id": "iam-serviceaccounts-pt",
+      "locale": "pt",
+      "question": "O que é uma conta de serviço e quem a utiliza para acessar recursos do Google Cloud?",
+      "expected_urls": [
+        "https://docs.cloud.google.com/iam/docs/service-account-overview"
+      ],
+      "retrieved_urls": [
+        "https://docs.cloud.google.com/iam/docs/service-account-overview",
+        "https://docs.cloud.google.com/iam/docs/service-account-overview",
+        "https://docs.cloud.google.com/iam/docs/overview",
+        "https://docs.cloud.google.com/run/docs/configuring/services/service-identity",
+        "https://docs.cloud.google.com/iam/docs/service-account-overview"
+      ],
+      "hit": true,
+      "reciprocal_rank": 1
+    },
+    {
+      "id": "iam-keys-pt",
+      "locale": "pt",
+      "question": "Por que evitar chaves de conta de serviço de longa duração quando há alternativas?",
+      "expected_urls": [
+        "https://docs.cloud.google.com/iam/docs/best-practices-for-managing-service-account-keys"
+      ],
+      "retrieved_urls": [
+        "https://docs.cloud.google.com/iam/docs/best-practices-for-managing-service-account-keys",
+        "https://docs.cloud.google.com/iam/docs/best-practices-for-managing-service-account-keys",
+        "https://docs.cloud.google.com/iam/docs/best-practices-for-managing-service-account-keys",
+        "https://docs.cloud.google.com/iam/docs/best-practices-for-managing-service-account-keys",
+        "https://docs.cloud.google.com/iam/docs/best-practices-for-managing-service-account-keys"
+      ],
+      "hit": true,
+      "reciprocal_rank": 1
+    },
+    {
+      "id": "run-overview-en",
+      "locale": "en",
+      "question": "What does Cloud Run manage for an application deployed in a container?",
+      "expected_urls": [
+        "https://docs.cloud.google.com/run/docs/overview/what-is-cloud-run"
+      ],
+      "retrieved_urls": [
+        "https://docs.cloud.google.com/run/docs/overview/what-is-cloud-run",
+        "https://docs.cloud.google.com/run/docs/deploying",
+        "https://docs.cloud.google.com/run/docs/container-contract",
+        "https://docs.cloud.google.com/run/docs/deploying",
+        "https://docs.cloud.google.com/run/docs/overview/what-is-cloud-run"
+      ],
+      "hit": true,
+      "reciprocal_rank": 1
+    },
+    {
+      "id": "run-contract-en",
+      "locale": "en",
+      "question": "Which network interface and port must a Cloud Run ingress container listen on?",
+      "expected_urls": [
+        "https://docs.cloud.google.com/run/docs/container-contract"
+      ],
+      "retrieved_urls": [
+        "https://docs.cloud.google.com/run/docs/container-contract",
+        "https://docs.cloud.google.com/run/docs/deploying",
+        "https://docs.cloud.google.com/run/docs/container-contract",
+        "https://docs.cloud.google.com/run/docs/container-contract",
+        "https://docs.cloud.google.com/run/docs/container-contract"
+      ],
+      "hit": true,
+      "reciprocal_rank": 1
+    },
+    {
+      "id": "run-identity-en",
+      "locale": "en",
+      "question": "Which identity does a Cloud Run service use when calling Google Cloud APIs?",
+      "expected_urls": [
+        "https://docs.cloud.google.com/run/docs/configuring/services/service-identity"
+      ],
+      "retrieved_urls": [
+        "https://docs.cloud.google.com/run/docs/configuring/services/service-identity",
+        "https://docs.cloud.google.com/run/docs/configuring/services/service-identity",
+        "https://docs.cloud.google.com/run/docs/configuring/services/service-identity",
+        "https://docs.cloud.google.com/run/docs/configuring/services/service-identity",
+        "https://docs.cloud.google.com/run/docs/overview/what-is-cloud-run"
+      ],
+      "hit": true,
+      "reciprocal_rank": 1
+    },
+    {
+      "id": "run-overview-pt",
+      "locale": "pt",
+      "question": "O que o Cloud Run gerencia para uma aplicação implantada em contêiner?",
+      "expected_urls": [
+        "https://docs.cloud.google.com/run/docs/overview/what-is-cloud-run"
+      ],
+      "retrieved_urls": [
+        "https://docs.cloud.google.com/run/docs/overview/what-is-cloud-run",
+        "https://docs.cloud.google.com/run/docs/deploying",
+        "https://docs.cloud.google.com/run/docs/deploying",
+        "https://docs.cloud.google.com/run/docs/deploying",
+        "https://docs.cloud.google.com/run/docs/container-contract"
+      ],
+      "hit": true,
+      "reciprocal_rank": 1
+    },
+    {
+      "id": "run-contract-pt",
+      "locale": "pt",
+      "question": "Em qual interface de rede e porta o contêiner de entrada do Cloud Run deve escutar?",
+      "expected_urls": [
+        "https://docs.cloud.google.com/run/docs/container-contract"
+      ],
+      "retrieved_urls": [
+        "https://docs.cloud.google.com/run/docs/container-contract",
+        "https://docs.cloud.google.com/compute/docs/instances",
+        "https://docs.cloud.google.com/run/docs/container-contract",
+        "https://docs.cloud.google.com/gemini-enterprise-agent-platform/machine-learning/model-registry/introduction",
+        "https://docs.cloud.google.com/run/docs/container-contract"
+      ],
+      "hit": true,
+      "reciprocal_rank": 1
+    },
+    {
+      "id": "run-identity-pt",
+      "locale": "pt",
+      "question": "Qual identidade um serviço do Cloud Run utiliza para chamar APIs do Google Cloud?",
+      "expected_urls": [
+        "https://docs.cloud.google.com/run/docs/configuring/services/service-identity"
+      ],
+      "retrieved_urls": [
+        "https://docs.cloud.google.com/run/docs/configuring/services/service-identity",
+        "https://docs.cloud.google.com/run/docs/overview/what-is-cloud-run",
+        "https://docs.cloud.google.com/run/docs/configuring/services/service-identity",
+        "https://docs.cloud.google.com/run/docs/configuring/services/service-identity",
+        "https://docs.cloud.google.com/run/docs/triggering/https-request"
+      ],
+      "hit": true,
+      "reciprocal_rank": 1
+    }
+  ],
+  "samples": [
+    {
+      "id": "vertex-registry-en",
+      "question": "What does the model registry organize in Vertex AI?",
+      "result": {
+        "answer": "The Gemini Enterprise Agent Platform has a central repository called Model Registry where you can manage the lifecycle of your ML models. This allows you to organize, track, and train new versions of your models.\n\n[S1]",
+        "sources": [
+          {
+            "id": "S1",
+            "title": "Introduction to Model Registry Stay organized with collections Save and categorize content based on your preferences.",
+            "url": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/machine-learning/model-registry/introduction",
+            "product": "Vertex AI",
+            "section": "",
+            "crawled_at": "2026-10-24T21:00:46.430460+00:00",
+            "excerpt": "Model Registry on Gemini Enterprise Agent Platform is a central repository where you can manage\nthe lifecycle of your ML models.\nFrom Model Registry, you have an overview of your models so\nyou can better organize, track, and train new versions."
+          }
+        ],
+        "mode": "rag",
+        "simulated": false
+      }
+    },
+    {
+      "id": "storage-buckets-pt",
+      "question": "Qual é a relação entre buckets e objetos no Cloud Storage?",
+      "result": {
+        "answer": "Os buckets servem como uma base de dados primária no ecossistema Google Cloud. Eles podem ser conectados como backends de armazenamento para outros serviços do Google Cloud.\n\n[S3]",
+        "sources": [
+          {
+            "id": "S3",
+            "title": "Cloud Storage overview Stay organized with collections Save and categorize content based on your preferences.",
+            "url": "https://docs.cloud.google.com/storage/docs/introduction",
+            "product": "Cloud Storage",
+            "section": "The Google Cloud hierarchy",
+            "crawled_at": "2026-10-24T20:58:41.168718+00:00",
+            "excerpt": "Buckets serve as a primary data foundation in the broader Google Cloud\n  ecosystem. You can connect your buckets as storage backends for other\n  Google Cloud services, such as AI Hypercomputer, Vertex AI,\n  and Google Kubernetes Engine.\n- [Object](/storage/docs/objects): Buckets contain objects, such as an image called `puppy.png`."
+          }
+        ],
+        "mode": "rag",
+        "simulated": false
+      }
+    },
+    {
+      "id": "bigquery-datasets-en",
+      "question": "What is a BigQuery dataset and what resources does it contain?",
+      "result": {
+        "answer": "A dataset is a top-level container that organizes and controls access to tables and views. A table or view must belong to a dataset.\n\n[S1]",
+        "sources": [
+          {
+            "id": "S1",
+            "title": "Introduction to datasets",
+            "url": "https://docs.cloud.google.com/bigquery/docs/datasets-intro",
+            "product": "BigQuery",
+            "section": "Introduction to datasets > Datasets",
+            "crawled_at": "2026-10-24T20:58:51.318736+00:00",
+            "excerpt": "A dataset is contained within a specific [project](/docs/overview#projects). Datasets\nare top-level containers that are used to organize and control access to your\n[tables](/bigquery/docs/tables) and [views](/bigquery/docs/views). A table\nor view must belong to a dataset, so you need to create at least one dataset before\n[loading data into BigQuery](/bigquery/loading-data-into-bigquery)."
+          }
+        ],
+        "mode": "rag",
+        "simulated": false
+      }
+    },
+    {
+      "id": "compute-instances-pt",
+      "question": "O que é uma instância de máquina virtual no Compute Engine?",
+      "result": {
+        "answer": "Uma instância que tem o nome do tipo de máquina terminando em `-metal` é um tipo de instância de metal bruto, que não tem um hipervisor instalado. Caso contrário, é uma instância de máquina virtual.\n\n[S4]",
+        "sources": [
+          {
+            "id": "S4",
+            "title": "Create and start a Compute Engine instance Stay organized with collections Save and categorize content based on your preferences.",
+            "url": "https://docs.cloud.google.com/compute/docs/instances/create-start-instance",
+            "product": "Compute Engine",
+            "section": "",
+            "crawled_at": "2026-10-24T20:59:04.125133+00:00",
+            "excerpt": "- If the name of its machine type ends in `-metal`, an\n  instance is a\n  [bare metal instance](/compute/docs/machine-resource#bare-metal-types),\n  which does not have a hypervisor installed.\n- Otherwise, an instance is a VM instance. The terms\n  *virtual machine instance*, *VM instance*, and *VM*\n  are synonymous."
+          }
+        ],
+        "mode": "rag",
+        "simulated": false
+      }
+    },
+    {
+      "id": "iam-roles-en",
+      "question": "How do IAM roles relate to individual permissions?",
+      "result": {
+        "answer": "You cannot directly grant permissions to a principal, but rather give them roles that include permissions. Roles are collections of permissions that are granted to principals.\n\n[S2]",
+        "sources": [
+          {
+            "id": "S2",
+            "title": "IAM overview Stay organized with collections Save and categorize content based on your preferences.",
+            "url": "https://docs.cloud.google.com/iam/docs/overview",
+            "product": "IAM",
+            "section": "Access in Google Cloud > Permissions and roles",
+            "crawled_at": "2026-10-24T20:59:09.862423+00:00",
+            "excerpt": "*You can't directly grant permissions to a principal*. Instead, you give\nprincipals permissions by granting them *roles*.\n\nRoles are collections of permissions. When you grant a role to a principal, you\ngive that principal all of the permissions in that role.\n\nThere are three types of roles:\n\n- **Predefined roles**: Roles that are managed by Google Cloud services."
+          }
+        ],
+        "mode": "rag",
+        "simulated": false
+      }
+    },
+    {
+      "id": "run-overview-pt",
+      "question": "O que o Cloud Run gerencia para uma aplicação implantada em contêiner?",
+      "result": {
+        "answer": "Um serviço Cloud Run fornece a infraestrutura necessária para executar um ponto final HTTPS confiável. Para usar esse serviço, você deve garantir que seu código ouça em uma porta TCP e lidere com as solicitações HTTP de entrada.\n\n[S1]",
+        "sources": [
+          {
+            "id": "S1",
+            "title": "What is Cloud Run Stay organized with collections Save and categorize content based on your preferences.",
+            "url": "https://docs.cloud.google.com/run/docs/overview/what-is-cloud-run",
+            "product": "Cloud Run",
+            "section": "Cloud Run services",
+            "crawled_at": "2026-10-24T20:59:19.421632+00:00",
+            "excerpt": "A Cloud Run service provides the infrastructure you need to run a\nreliable HTTPS endpoint. To use this service, you must ensure your code listens\non a TCP port and handles incoming HTTP requests."
+          }
+        ],
+        "mode": "rag",
+        "simulated": false
+      }
+    }
+  ],
+  "limitations": "Small reviewed official-documentation corpus and independent curated questions. Retrieval Hit@5 does not measure generation fidelity. Existing synthetic local evaluation fixtures were not indexed or used in this report. Answer samples require independent editorial review; valid structured citations alone do not prove semantic fidelity. A RAG turn uses a bounded selection call plus a writing call on the same fixed free model; both consume the shared account allowance, with no retries."
+}

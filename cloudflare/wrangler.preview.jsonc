@@ -1,0 +1,72 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "gcp-ai-copilot-preview",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-08-06",
+  "workers_dev": true,
+  "preview_urls": false,
+  "observability": {
+    "enabled": false
+  },
+  "assets": {
+    "directory": "../frontend/dist",
+    "binding": "ASSETS",
+    "not_found_handling": "single-page-application",
+    "html_handling": "drop-trailing-slash",
+    "run_worker_first": [
+      "/api/*"
+    ]
+  },
+  "ai": {
+    "binding": "AI"
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "gcp-copilot-demo-preview",
+      "database_id": "a3f58bb5-3b8c-434a-9304-7f02d0e61dc8",
+      "migrations_dir": "migrations"
+    }
+  ],
+  "vectorize": [
+    {
+      "binding": "VECTORIZE",
+      "index_name": "gcp-copilot-demo-preview"
+    }
+  ],
+  "durable_objects": {
+    "bindings": [
+      {
+        "name": "BUDGET",
+        "class_name": "BudgetGuard",
+        "script_name": "gcp-ai-copilot"
+      }
+    ]
+  },
+  "services": [
+    {
+      "binding": "MCP",
+      "service": "gcp-copilot-mcp",
+      "entrypoint": "McpPrivate"
+    }
+  ],
+  "ratelimits": [
+    {
+      "name": "EDGE_RATE_LIMIT",
+      "namespace_id": "940912",
+      "simple": {
+        "limit": 30,
+        "period": 60
+      }
+    }
+  ],
+  "vars": {
+    "DEMO_ENABLED": "true",
+    "ENVIRONMENT": "preview",
+    "CORPUS_VERSION": "docs-d91e5f5e46cf",
+    "ALLOWED_ORIGINS": "https://gcp-ai-copilot-preview.marcos-6b4.workers.dev",
+    "TURNSTILE_HOSTNAMES": "gcp-ai-copilot-preview.marcos-6b4.workers.dev",
+    "MIN_DENSE_SCORE": ".45"
+  },
+  "account_id": "6b436fdf69ec96a83f094e931d764468"
+}

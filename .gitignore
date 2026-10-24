@@ -16,3 +16,10 @@ frontend/coverage/
 playwright-report/
 test-results/
 *.zip
+
+cloudflare/.cache/
+cloudflare/.wrangler/
+cloudflare/dist/
+cloudflare/.dev.vars
+cloudflare/.dev.vars.*
+.wrangler/
