@@ -1,0 +1,12 @@
+{
+  "content": "# Speech-to-Text\n\n## Audio transcription\n\nSpeech-to-Text transcribes spoken audio into written text. Requests specify recognition features and language. Streaming recognition receives audio progressively. Transcrição de áudio converte fala em texto.",
+  "metadata": {
+    "source_url": "https://docs.cloud.google.com/speech-to-text/docs/basics",
+    "title": "Speech-to-Text",
+    "product": "Speech-to-Text",
+    "section": "Audio transcription",
+    "crawled_at": null,
+    "fixture": true,
+    "fixture_note": "Hand-authored paraphrase for testing; not a scraped or current documentation snapshot."
+  }
+}

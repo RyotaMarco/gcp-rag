@@ -1,0 +1,12 @@
+{
+  "content": "# Cloud Translation\n\n## Text translation\n\nCloud Translation translates text between languages. Advanced features include glossaries that help preserve domain terminology. Tradução de texto entre idiomas pode usar glossários para termos especializados.",
+  "metadata": {
+    "source_url": "https://docs.cloud.google.com/translate/docs/overview",
+    "title": "Cloud Translation",
+    "product": "Cloud Translation",
+    "section": "Text translation",
+    "crawled_at": null,
+    "fixture": true,
+    "fixture_note": "Hand-authored paraphrase for testing; not a scraped or current documentation snapshot."
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "content": "# Cloud Storage\n\n## Buckets and objects\n\nCloud Storage stores objects in buckets. A bucket has a globally unique name and a location. Uniform bucket-level access manages object permissions through bucket IAM policies. Buckets armazenam objetos e usam políticas de acesso.",
+  "metadata": {
+    "source_url": "https://docs.cloud.google.com/storage/docs/buckets",
+    "title": "Cloud Storage",
+    "product": "Cloud Storage",
+    "section": "Buckets and objects",
+    "crawled_at": null,
+    "fixture": true,
+    "fixture_note": "Hand-authored paraphrase for testing; not a scraped or current documentation snapshot."
+  }
+}

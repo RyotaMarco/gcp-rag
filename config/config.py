@@ -1,70 +1,64 @@
+"""Configuration is evaluated at startup, never requiring secrets during import."""
+from dataclasses import dataclass
+from functools import lru_cache
+from pathlib import Path
 import os
 from dotenv import load_dotenv
 
-load_dotenv()
+@dataclass(frozen=True)
+class Settings:
+    data_dir: Path = Path("data")
+    qdrant_url: str = "http://localhost:6333"
+    collection_name: str = "gcp_docs_v2"
+    embedding_model: str = "intfloat/multilingual-e5-small"
+    reranker_model: str = "cross-encoder/mmarco-mMiniLMv2-L12-H384-v1"
+    groq_api_key: str = ""
+    groq_model: str = "openai/gpt-oss-20b"
+    api_plan: str = "free"
+    allow_paid_api: bool = False
+    max_context_chars: int = 12000
+    max_output_tokens: int = 1000
+    request_timeout: float = 45.0
+    max_history_messages: int = 6
+    retrieval_k: int = 5
+    min_relevance_score: float = 0.30
+    mcp_url: str = "http://localhost:8001/mcp"
+    chunk_size: int = 1600
+    chunk_overlap: int = 200
+    crawl_max_pages: int = 25
+    crawl_delay: float = 1.0
 
-def _require_env(key: str) -> str:
-    value = os.getenv(key)
-    if not value:
-        raise ValueError(f"Missing required environment variable: {key}")
-    return value
+    def __post_init__(self):
+        if self.api_plan not in {"free", "paid"}:
+            raise ValueError("API_PLAN must be free or paid")
+        if self.api_plan == "paid" and not self.allow_paid_api:
+            raise ValueError("Set ALLOW_PAID_API=true to explicitly enable API_PLAN=paid")
+        if not 0 <= self.min_relevance_score <= 1:
+            raise ValueError("MIN_RELEVANCE_SCORE must be between 0 and 1")
+        if not 0 <= self.chunk_overlap < self.chunk_size:
+            raise ValueError("CHUNK_OVERLAP must be smaller than CHUNK_SIZE")
+        for name in ("max_context_chars", "max_output_tokens", "request_timeout", "max_history_messages", "retrieval_k", "crawl_max_pages"):
+            if getattr(self, name) <= 0:
+                raise ValueError(f"{name} must be positive")
+        if self.crawl_delay < 0:
+            raise ValueError("CRAWL_DELAY must be nonnegative")
 
-
-class Config:
-    BASE_URL = "https://docs.cloud.google.com"
-    QDRANT_URL = _require_env("QDRANT_URL")
-    CATEGORY = "AI/ML"
-    LOCALSTACK_URL = _require_env("LOCALSTACK_URL")
-    RAW_BUCKET_NAME = _require_env("GCP_DOCS_BUCKET_NAME_RAW")
-    PROCESSED_BUCKET_NAME = _require_env("GCP_DOCS_BUCKET_NAME_PROCESSED")
-    AWS_ACCESS_KEY_ID = _require_env("AWS_ACCESS_KEY_ID")
-    AWS_SECRET_ACCESS_KEY = _require_env("AWS_SECRET_ACCESS_KEY")
-    AWS_DEFAULT_REGION = _require_env("AWS_DEFAULT_REGION")
-    GROQ_API_KEY = _require_env("GROQ_API_KEY")
-    CHUNK_SIZE = 1000
-    CHUNK_OVERLAP = 200
-
-    GCP_SERVICES = [
-
-        # --- Main ---
-        {"endpoint": "vertex-ai/docs?hl=en", "category": CATEGORY, "subcategory": "ML Platform", "product": "Vertex AI"},
-
-        # --- Gen AI ---
-        {"endpoint": "vertex-ai/generative-ai/docs?hl=en", "category": CATEGORY, "subcategory": "Generative AI", "product": "Vertex AI Generative AI"},
-        {"endpoint": "gemini-api/docs?hl=en", "category": CATEGORY, "subcategory": "Generative AI", "product": "Gemini API"},
-
-        # --- Agents e Conversation ---
-        {"endpoint": "dialogflow/docs?hl=en", "category": CATEGORY, "subcategory": "Conversational AI", "product": "Dialogflow CX"},
-        {"endpoint": "dialogflow/es/docs?hl=en", "category": CATEGORY, "subcategory": "Conversational AI", "product": "Dialogflow ES"},
-        {"endpoint": "agent-builder/docs?hl=en", "category": CATEGORY, "subcategory": "Conversational AI", "product": "Agent Builder"},
-        {"endpoint": "agent-assist/docs?hl=en", "category": CATEGORY, "subcategory": "Conversational AI", "product": "Agent Assist"},
-        {"endpoint": "contact-center/docs?hl=en", "category": CATEGORY, "subcategory": "Conversational AI", "product": "Contact Center AI"},
-
-        # --- Visual Computing ---
-        {"endpoint": "vision/docs?hl=en", "category": CATEGORY, "subcategory": "Vision", "product": "Cloud Vision API"},
-        {"endpoint": "video-intelligence/docs?hl=en", "category": CATEGORY, "subcategory": "Vision", "product": "Video Intelligence API"},
-        {"endpoint": "vertex-ai/docs/image-data?hl=en", "category": CATEGORY, "subcategory": "Vision", "product": "AutoML Vision"},
-        {"endpoint": "vertex-ai-vision/docs?hl=en", "category": CATEGORY, "subcategory": "Vision", "product": "Vertex AI Vision"},
-
-        # --- Natural Language ---
-        {"endpoint": "natural-language/docs?hl=en", "category": CATEGORY, "subcategory": "Natural Language", "product": "Natural Language API"},
-        {"endpoint": "translate/docs?hl=en", "category": CATEGORY, "subcategory": "Natural Language", "product": "Cloud Translation"},
-        {"endpoint": "healthcare-api/docs?hl=en", "category": CATEGORY, "subcategory": "Natural Language", "product": "Healthcare Natural Language AI"},
-
-        # --- Conversational ---
-        {"endpoint": "speech-to-text/docs?hl=en", "category": CATEGORY, "subcategory": "Speech", "product": "Speech-to-Text"},
-        {"endpoint": "text-to-speech/docs?hl=en", "category": CATEGORY, "subcategory": "Speech", "product": "Text-to-Speech"},
-
-        # --- Documents ---
-        {"endpoint": "document-ai/docs?hl=en", "category": CATEGORY, "subcategory": "Document AI", "product": "Document AI"},
-
-        # --- ML Infrastructure ---
-        {"endpoint": "tpu/docs?hl=en", "category": CATEGORY, "subcategory": "ML Infrastructure", "product": "Cloud TPU"},
-        {"endpoint": "deep-learning-containers/docs?hl=en", "category": CATEGORY, "subcategory": "ML Infrastructure", "product": "Deep Learning Containers"},
-        {"endpoint": "deep-learning-vm/docs?hl=en", "category": CATEGORY, "subcategory": "ML Infrastructure", "product": "Deep Learning VM"},
-
-        # --- Data to ML ---
-        {"endpoint": "timeseries-insights/docs?hl=en", "category": CATEGORY, "subcategory": "Data for ML", "product": "Timeseries Insights API"},
-        {"endpoint": "recommendations-ai/docs?hl=en", "category": CATEGORY, "subcategory": "Data for ML", "product": "Recommendations AI"},
-        {"endpoint": "retail/docs?hl=en", "category": CATEGORY, "subcategory": "Data for ML", "product": "Vertex AI Search for Retail"},
-    ]
+@lru_cache
+def get_settings() -> Settings:
+    load_dotenv()
+    defaults = Settings()
+    values = {}
+    for name in defaults.__dataclass_fields__:
+        raw = os.getenv(name.upper())
+        if raw is None:
+            continue
+        default = getattr(defaults, name)
+        if isinstance(default, bool):
+            if raw.lower() not in {"true", "false"}:
+                raise ValueError(f"{name.upper()} must be true or false")
+            values[name] = raw.lower() == "true"
+        elif isinstance(default, Path):
+            values[name] = Path(raw)
+        else:
+            values[name] = type(default)(raw)
+    return Settings(**values)

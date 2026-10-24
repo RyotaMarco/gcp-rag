@@ -1,93 +1,65 @@
-from typing import Optional
+"""Atomic, content-addressed document storage on a persistent filesystem."""
+from datetime import datetime, timezone
+from hashlib import sha256
+import json
+import os
+from pathlib import Path
+import tempfile
+from urllib.parse import urlsplit, urlunsplit
+from config.config import Settings, get_settings
 
-import boto3
-from botocore.exceptions import ClientError
+ALLOWED_DOC_HOSTS = {"cloud.google.com", "docs.cloud.google.com", "ai.google.dev"}
 
-from config.config import Config
 
-class BucketStorage:
-    def __init__(self, config: type[Config] = Config):
-        self.raw_bucket_name = config.RAW_BUCKET_NAME
-        self.processed_bucket_name = config.PROCESSED_BUCKET_NAME
-        self.localstack_url = config.LOCALSTACK_URL
-        self.aws_access_key_id = config.AWS_ACCESS_KEY_ID
-        self.aws_secret_access_key = config.AWS_SECRET_ACCESS_KEY
-        self.aws_default_region = config.AWS_DEFAULT_REGION
-        self.s3 = boto3.client('s3',
-                               aws_access_key_id=self.aws_access_key_id,
-                               aws_secret_access_key=self.aws_secret_access_key,
-                               region_name=self.aws_default_region,
-                               endpoint_url=self.localstack_url)
-        self._create_bucket()
+def canonical_url(url: str) -> str:
+    parts = urlsplit(url)
+    if parts.scheme != "https" or parts.hostname not in ALLOWED_DOC_HOSTS or parts.username or parts.password or parts.port not in {None, 443}:
+        raise ValueError("Document sources must be HTTPS URLs on official Google documentation domains")
+    return urlunsplit(("https", parts.hostname, parts.path.rstrip("/") or "/", "", ""))
 
-    def _create_bucket(self) -> None:
-        """
-        Create a new S3 bucket if it doesn't exist
-        parameters:
-            bucket_name: Name of the bucket to be created
-        """
-        for bucket_name in [self.raw_bucket_name, self.processed_bucket_name]:
+
+def atomic_json(path: Path, value: dict):
+    path.parent.mkdir(parents=True, exist_ok=True)
+    descriptor, temporary = tempfile.mkstemp(prefix=".tmp-", dir=path.parent)
+    try:
+        with os.fdopen(descriptor, "w", encoding="utf-8") as stream:
+            json.dump(value, stream, ensure_ascii=False, indent=2)
+        os.replace(temporary, path)
+    finally:
+        if os.path.exists(temporary):
+            os.unlink(temporary)
+
+
+class DocumentStorage:
+    def __init__(self, settings: Settings | None = None):
+        self.settings = settings or get_settings()
+        self.raw_dir = self.settings.data_dir / "raw"
+
+    def save(self, content: str, metadata: dict) -> Path:
+        if not content.strip():
+            raise ValueError("Cannot store an empty document")
+        metadata = dict(metadata)
+        metadata["source_url"] = canonical_url(metadata["source_url"])
+        metadata.setdefault("crawled_at", datetime.now(timezone.utc).isoformat())
+        metadata.setdefault("title", metadata.get("product", "Google Cloud documentation"))
+        path = self.raw_dir / (sha256(metadata["source_url"].encode()).hexdigest() + ".json")
+        atomic_json(path, {"content": content, "metadata": metadata})
+        return path
+
+    def documents(self, directory: Path | None = None, on_error=None):
+        root = directory or self.raw_dir
+        for path in sorted(root.glob("*.json")):
             try:
-                self.s3.create_bucket(Bucket=bucket_name)
-            except ClientError as e:
-                error_code = e.response['Error']['Code']
-                if error_code not in ('BucketAlreadyExists', 'BucketAlreadyOwnedByYou'):
-                    raise
-
-    def upload_file(self, content: str, file_name: str, metadata: dict) -> None:
-        """
-        Upload a file to an S3 bucket
-        parameters:
-            content: Content of the file to be uploaded
-            file_name: S3 object name. If not specified, then file_name is used
-        """
-
-        self.s3.put_object(Bucket=self.raw_bucket_name, Key=file_name, Body=content, Metadata=metadata)
-
-    def list_files(self, bucket_name: str, prefix: Optional[str] = None) -> list:
-        """
-        return: List of all files in the bucket
-        parameters:
-            prefix: Prefix of the files to be listed
-        """
-        kwarg = {'Bucket': bucket_name}
-        if prefix:
-            kwarg['Prefix'] = prefix
-        response = self.s3.list_objects_v2(**kwarg)
-        return [content['Key'] for content in response.get('Contents', [])]
+                value = json.loads(path.read_text(encoding="utf-8-sig"))
+                if not isinstance(value, dict) or not isinstance(value.get("content"), str) or not isinstance(value.get("metadata"), dict):
+                    raise ValueError(f"Invalid document file: {path.name}")
+                value["metadata"]["source_url"] = canonical_url(value["metadata"]["source_url"])
+                yield value
+            except (OSError, ValueError, KeyError, TypeError) as error:
+                if on_error is None:
+                    raise ValueError(f"Invalid document file: {path.name}") from error
+                on_error(path, error)
 
 
-    def copy_file(self, source_file_path: str) -> None:
-        """
-        Copy files from the raw bucket to processed bucket
-        parameters:
-            source_file_path: Path of the file to be copied
-        """
-        self.s3.copy_object(Bucket=self.processed_bucket_name, CopySource={'Bucket': self.raw_bucket_name, 'Key': source_file_path}, Key=source_file_path)
-
-    def delete_file(self, key: str) -> None:
-        """
-        Delete a file from the raw bucket
-        parameters:
-            key: Key of the file to be deleted
-        """
-        self.s3.delete_object(Bucket=self.raw_bucket_name, Key=key)
-
-
-    def move_files(self, source_file_path: str):
-        """
-        Move a file within the raw bucket to the processed bucket
-        parameters:
-            source_file_path: Path of the file to be moved
-        """
-        self.copy_file(source_file_path)
-        self.delete_file(source_file_path)
-
-    def read_object(self, source_file_path: str):
-        """
-        Read an object from the raw bucket
-        parameters:
-            source_file_path: Path of the file to be read
-        """
-        response = self.s3.get_object(Bucket=self.raw_bucket_name, Key=source_file_path)
-        return response['Body'].read().decode('utf-8')
+# Compatibility name for callers migrating from the original S3 implementation.
+BucketStorage = DocumentStorage

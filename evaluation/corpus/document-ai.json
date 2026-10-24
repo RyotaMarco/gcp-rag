@@ -1,0 +1,12 @@
+{
+  "content": "# Document AI\n\n## Document processors\n\nDocument AI processors extract structured fields and text from documents. Specialized processors handle document types such as invoices. Processadores extraem campos estruturados de faturas e outros documentos.",
+  "metadata": {
+    "source_url": "https://docs.cloud.google.com/document-ai/docs/overview",
+    "title": "Document AI",
+    "product": "Document AI",
+    "section": "Document processors",
+    "crawled_at": null,
+    "fixture": true,
+    "fixture_note": "Hand-authored paraphrase for testing; not a scraped or current documentation snapshot."
+  }
+}

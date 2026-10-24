@@ -1,31 +1,15 @@
-# LLM + Embeddings (Google)
-langchain
-langchain-core
-langchain-qdrant
-langchain-community
-langchain-groq
-langchain-text-splitters
-langchain-huggingface
-sentence_transformers
-
-# Vector Store
-qdrant-client
-
-# Scraping + Parsing
-crawl4ai
-
-# Utils
-boto3
-botocore
-python-dotenv
-uvicorn
-fastapi
-uvicorn
-pydantic
-
-# MCP Server
-# fastmcp
-# google-cloud-storage
-# google-cloud-compute
-# google-cloud-bigquery
-
+# Direct dependencies pinned with resolved transitive constraints.
+-c requirements.lock
+torch==2.14.1
+transformers==5.20.2
+fastapi==0.135.1
+uvicorn==0.41.0
+httpx==0.28.1
+pydantic==2.12.5
+python-dotenv==1.2.1
+mcp==1.30.0
+qdrant-client==1.17.1
+sentence-transformers==5.2.3
+beautifulsoup4==4.14.3
+markdownify==1.2.2
+rank-bm25==0.2.2

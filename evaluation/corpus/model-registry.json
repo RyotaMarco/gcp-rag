@@ -1,0 +1,12 @@
+{
+  "content": "# Vertex AI Model Registry\n\n## Model versions and aliases\n\nVertex AI Model Registry organizes trained machine learning models, versions and aliases. Register and track a model version before deploying it. O registro de modelos organiza versões e aliases dos modelos de aprendizado de máquina.",
+  "metadata": {
+    "source_url": "https://docs.cloud.google.com/vertex-ai/docs/model-registry/introduction",
+    "title": "Vertex AI Model Registry",
+    "product": "Vertex AI Model Registry",
+    "section": "Model versions and aliases",
+    "crawled_at": null,
+    "fixture": true,
+    "fixture_note": "Hand-authored paraphrase for testing; not a scraped or current documentation snapshot."
+  }
+}

@@ -1,0 +1,1045 @@
+{
+  "schema_version": 1,
+  "mode": "real",
+  "corpus": "evaluation/corpus",
+  "corpus_documents": 15,
+  "embedding_model": "intfloat/multilingual-e5-small",
+  "reranker_model": "cross-encoder/mmarco-mMiniLMv2-L12-H384-v1",
+  "scope": "Real local models against small hand-authored representative corpus; NOT live-crawl production accuracy",
+  "baseline_definition": "Semantic-only top-5 using the SAME embedding model; not the original repository's English MiniLM model",
+  "metric_definition": "Fraction of answerable retrieval questions with at least one expected source URL in top five (Hit@5), not Precision@5",
+  "total_cases_in_suite": 42,
+  "baseline": {
+    "answerable_cases": 32,
+    "hits_at_5": 32,
+    "hit_rate_at_5": 1.0,
+    "mean_reciprocal_rank": 1.0
+  },
+  "hybrid": {
+    "answerable_cases": 32,
+    "hits_at_5": 32,
+    "hit_rate_at_5": 1.0,
+    "mean_reciprocal_rank": 1.0
+  },
+  "hit_rate_delta": 0.0,
+  "threshold": 0.85,
+  "passed": true,
+  "behavior_cases_not_run_by_retrieval_benchmark": [
+    {
+      "id": "ambiguous-pt",
+      "expected_mode": "clarification",
+      "reason": "Run backend API/routing tests; excluded from answerable-retrieval denominator"
+    },
+    {
+      "id": "ambiguous-en",
+      "expected_mode": "clarification",
+      "reason": "Run backend API/routing tests; excluded from answerable-retrieval denominator"
+    },
+    {
+      "id": "no-evidence-pt",
+      "expected_mode": "insufficient_evidence",
+      "reason": "Run backend API/routing tests; excluded from answerable-retrieval denominator"
+    },
+    {
+      "id": "no-evidence-en",
+      "expected_mode": "insufficient_evidence",
+      "reason": "Run backend API/routing tests; excluded from answerable-retrieval denominator"
+    },
+    {
+      "id": "out-of-scope",
+      "expected_mode": "insufficient_evidence",
+      "reason": "Run backend API/routing tests; excluded from answerable-retrieval denominator"
+    },
+    {
+      "id": "mcp-buckets-pt",
+      "expected_mode": "mcp",
+      "reason": "Run backend API/routing tests; excluded from answerable-retrieval denominator"
+    },
+    {
+      "id": "mcp-vms-en",
+      "expected_mode": "mcp",
+      "reason": "Run backend API/routing tests; excluded from answerable-retrieval denominator"
+    },
+    {
+      "id": "mcp-datasets-pt",
+      "expected_mode": "mcp",
+      "reason": "Run backend API/routing tests; excluded from answerable-retrieval denominator"
+    },
+    {
+      "id": "mcp-public-buckets",
+      "expected_mode": "mcp",
+      "reason": "Run backend API/routing tests; excluded from answerable-retrieval denominator"
+    },
+    {
+      "id": "hybrid-pt",
+      "expected_mode": "hybrid",
+      "reason": "Run backend API/routing tests; excluded from answerable-retrieval denominator"
+    }
+  ],
+  "results": {
+    "baseline": [
+      {
+        "id": "model-registry-pt",
+        "language": "pt",
+        "kind": "retrieval",
+        "hit_at_5": true,
+        "reciprocal_rank": 1.0,
+        "returned_urls": [
+          "https://docs.cloud.google.com/vertex-ai/docs/model-registry/introduction",
+          "https://docs.cloud.google.com/vertex-ai/docs/predictions/overview",
+          "https://docs.cloud.google.com/vision/docs/ocr",
+          "https://docs.cloud.google.com/compute/docs/instances",
+          "https://docs.cloud.google.com/document-ai/docs/overview"
+        ],
+        "expected_urls": [
+          "https://docs.cloud.google.com/vertex-ai/docs/model-registry/introduction"
+        ]
+      },
+      {
+        "id": "model-registry-en",
+        "language": "en",
+        "kind": "retrieval",
+        "hit_at_5": true,
+        "reciprocal_rank": 1.0,
+        "returned_urls": [
+          "https://docs.cloud.google.com/vertex-ai/docs/model-registry/introduction",
+          "https://docs.cloud.google.com/vertex-ai/docs/predictions/overview",
+          "https://docs.cloud.google.com/vision/docs/ocr",
+          "https://docs.cloud.google.com/compute/docs/instances",
+          "https://docs.cloud.google.com/document-ai/docs/overview"
+        ],
+        "expected_urls": [
+          "https://docs.cloud.google.com/vertex-ai/docs/model-registry/introduction"
+        ]
+      },
+      {
+        "id": "vertex-endpoint-pt",
+        "language": "pt",
+        "kind": "retrieval",
+        "hit_at_5": true,
+        "reciprocal_rank": 1.0,
+        "returned_urls": [
+          "https://docs.cloud.google.com/vertex-ai/docs/predictions/overview",
+          "https://docs.cloud.google.com/vertex-ai/docs/model-registry/introduction",
+          "https://docs.cloud.google.com/compute/docs/instances",
+          "https://docs.cloud.google.com/document-ai/docs/overview",
+          "https://docs.cloud.google.com/iam/docs/overview"
+        ],
+        "expected_urls": [
+          "https://docs.cloud.google.com/vertex-ai/docs/predictions/overview"
+        ]
+      },
+      {
+        "id": "vertex-endpoint-en",
+        "language": "en",
+        "kind": "retrieval",
+        "hit_at_5": true,
+        "reciprocal_rank": 1.0,
+        "returned_urls": [
+          "https://docs.cloud.google.com/vertex-ai/docs/predictions/overview",
+          "https://docs.cloud.google.com/vertex-ai/docs/model-registry/introduction",
+          "https://docs.cloud.google.com/compute/docs/instances",
+          "https://docs.cloud.google.com/vision/docs/ocr",
+          "https://docs.cloud.google.com/document-ai/docs/overview"
+        ],
+        "expected_urls": [
+          "https://docs.cloud.google.com/vertex-ai/docs/predictions/overview"
+        ]
+      },
+      {
+        "id": "dialogflow-pt",
+        "language": "pt",
+        "kind": "retrieval",
+        "hit_at_5": true,
+        "reciprocal_rank": 1.0,
+        "returned_urls": [
+          "https://docs.cloud.google.com/dialogflow/cx/docs/basics",
+          "https://docs.cloud.google.com/bigquery/docs/datasets-intro",
+          "https://docs.cloud.google.com/pubsub/docs/overview",
+          "https://docs.cloud.google.com/run/docs/overview/what-is-cloud-run",
+          "https://docs.cloud.google.com/document-ai/docs/overview"
+        ],
+        "expected_urls": [
+          "https://docs.cloud.google.com/dialogflow/cx/docs/basics"
+        ]
+      },
+      {
+        "id": "dialogflow-en",
+        "language": "en",
+        "kind": "retrieval",
+        "hit_at_5": true,
+        "reciprocal_rank": 1.0,
+        "returned_urls": [
+          "https://docs.cloud.google.com/dialogflow/cx/docs/basics",
+          "https://docs.cloud.google.com/pubsub/docs/overview",
+          "https://docs.cloud.google.com/bigquery/docs/datasets-intro",
+          "https://docs.cloud.google.com/speech-to-text/docs/basics",
+          "https://docs.cloud.google.com/run/docs/overview/what-is-cloud-run"
+        ],
+        "expected_urls": [
+          "https://docs.cloud.google.com/dialogflow/cx/docs/basics"
+        ]
+      },
+      {
+        "id": "vision-pt",
+        "language": "pt",
+        "kind": "retrieval",
+        "hit_at_5": true,
+        "reciprocal_rank": 1.0,
+        "returned_urls": [
+          "https://docs.cloud.google.com/vision/docs/ocr",
+          "https://docs.cloud.google.com/translate/docs/overview",
+          "https://docs.cloud.google.com/document-ai/docs/overview",
+          "https://docs.cloud.google.com/speech-to-text/docs/basics",
+          "https://docs.cloud.google.com/tpu/docs/intro-to-tpu"
+        ],
+        "expected_urls": [
+          "https://docs.cloud.google.com/vision/docs/ocr"
+        ]
+      },
+      {
+        "id": "vision-en",
+        "language": "en",
+        "kind": "retrieval",
+        "hit_at_5": true,
+        "reciprocal_rank": 1.0,
+        "returned_urls": [
+          "https://docs.cloud.google.com/vision/docs/ocr",
+          "https://docs.cloud.google.com/translate/docs/overview",
+          "https://docs.cloud.google.com/document-ai/docs/overview",
+          "https://docs.cloud.google.com/speech-to-text/docs/basics",
+          "https://docs.cloud.google.com/storage/docs/buckets"
+        ],
+        "expected_urls": [
+          "https://docs.cloud.google.com/vision/docs/ocr"
+        ]
+      },
+      {
+        "id": "speech-pt",
+        "language": "pt",
+        "kind": "retrieval",
+        "hit_at_5": true,
+        "reciprocal_rank": 1.0,
+        "returned_urls": [
+          "https://docs.cloud.google.com/speech-to-text/docs/basics",
+          "https://docs.cloud.google.com/translate/docs/overview",
+          "https://docs.cloud.google.com/document-ai/docs/overview",
+          "https://docs.cloud.google.com/pubsub/docs/overview",
+          "https://docs.cloud.google.com/dialogflow/cx/docs/basics"
+        ],
+        "expected_urls": [
+          "https://docs.cloud.google.com/speech-to-text/docs/basics"
+        ]
+      },
+      {
+        "id": "speech-en",
+        "language": "en",
+        "kind": "retrieval",
+        "hit_at_5": true,
+        "reciprocal_rank": 1.0,
+        "returned_urls": [
+          "https://docs.cloud.google.com/speech-to-text/docs/basics",
+          "https://docs.cloud.google.com/translate/docs/overview",
+          "https://docs.cloud.google.com/vision/docs/ocr",
+          "https://docs.cloud.google.com/dialogflow/cx/docs/basics",
+          "https://docs.cloud.google.com/sql/docs/introduction"
+        ],
+        "expected_urls": [
+          "https://docs.cloud.google.com/speech-to-text/docs/basics"
+        ]
+      },
+      {
+        "id": "translation-pt",
+        "language": "pt",
+        "kind": "retrieval",
+        "hit_at_5": true,
+        "reciprocal_rank": 1.0,
+        "returned_urls": [
+          "https://docs.cloud.google.com/translate/docs/overview",
+          "https://docs.cloud.google.com/speech-to-text/docs/basics",
+          "https://docs.cloud.google.com/document-ai/docs/overview",
+          "https://docs.cloud.google.com/pubsub/docs/overview",
+          "https://docs.cloud.google.com/vision/docs/ocr"
+        ],
+        "expected_urls": [
+          "https://docs.cloud.google.com/translate/docs/overview"
+        ]
+      },
+      {
+        "id": "translation-en",
+        "language": "en",
+        "kind": "retrieval",
+        "hit_at_5": true,
+        "reciprocal_rank": 1.0,
+        "returned_urls": [
+          "https://docs.cloud.google.com/translate/docs/overview",
+          "https://docs.cloud.google.com/tpu/docs/intro-to-tpu",
+          "https://docs.cloud.google.com/vision/docs/ocr",
+          "https://docs.cloud.google.com/dialogflow/cx/docs/basics",
+          "https://docs.cloud.google.com/sql/docs/introduction"
+        ],
+        "expected_urls": [
+          "https://docs.cloud.google.com/translate/docs/overview"
+        ]
+      },
+      {
+        "id": "document-ai-pt",
+        "language": "pt",
+        "kind": "retrieval",
+        "hit_at_5": true,
+        "reciprocal_rank": 1.0,
+        "returned_urls": [
+          "https://docs.cloud.google.com/document-ai/docs/overview",
+          "https://docs.cloud.google.com/vertex-ai/docs/model-registry/introduction",
+          "https://docs.cloud.google.com/vision/docs/ocr",
+          "https://docs.cloud.google.com/vertex-ai/docs/predictions/overview",
+          "https://docs.cloud.google.com/compute/docs/instances"
+        ],
+        "expected_urls": [
+          "https://docs.cloud.google.com/document-ai/docs/overview"
+        ]
+      },
+      {
+        "id": "document-ai-en",
+        "language": "en",
+        "kind": "retrieval",
+        "hit_at_5": true,
+        "reciprocal_rank": 1.0,
+        "returned_urls": [
+          "https://docs.cloud.google.com/document-ai/docs/overview",
+          "https://docs.cloud.google.com/vision/docs/ocr",
+          "https://docs.cloud.google.com/vertex-ai/docs/model-registry/introduction",
+          "https://docs.cloud.google.com/speech-to-text/docs/basics",
+          "https://docs.cloud.google.com/vertex-ai/docs/predictions/overview"
+        ],
+        "expected_urls": [
+          "https://docs.cloud.google.com/document-ai/docs/overview"
+        ]
+      },
+      {
+        "id": "tpu-pt",
+        "language": "pt",
+        "kind": "retrieval",
+        "hit_at_5": true,
+        "reciprocal_rank": 1.0,
+        "returned_urls": [
+          "https://docs.cloud.google.com/tpu/docs/intro-to-tpu",
+          "https://docs.cloud.google.com/translate/docs/overview",
+          "https://docs.cloud.google.com/vision/docs/ocr",
+          "https://docs.cloud.google.com/document-ai/docs/overview",
+          "https://docs.cloud.google.com/pubsub/docs/overview"
+        ],
+        "expected_urls": [
+          "https://docs.cloud.google.com/tpu/docs/intro-to-tpu"
+        ]
+      },
+      {
+        "id": "tpu-en",
+        "language": "en",
+        "kind": "retrieval",
+        "hit_at_5": true,
+        "reciprocal_rank": 1.0,
+        "returned_urls": [
+          "https://docs.cloud.google.com/tpu/docs/intro-to-tpu",
+          "https://docs.cloud.google.com/vision/docs/ocr",
+          "https://docs.cloud.google.com/translate/docs/overview",
+          "https://docs.cloud.google.com/run/docs/overview/what-is-cloud-run",
+          "https://docs.cloud.google.com/storage/docs/buckets"
+        ],
+        "expected_urls": [
+          "https://docs.cloud.google.com/tpu/docs/intro-to-tpu"
+        ]
+      },
+      {
+        "id": "storage-pt",
+        "language": "pt",
+        "kind": "retrieval",
+        "hit_at_5": true,
+        "reciprocal_rank": 1.0,
+        "returned_urls": [
+          "https://docs.cloud.google.com/storage/docs/buckets",
+          "https://docs.cloud.google.com/sql/docs/introduction",
+          "https://docs.cloud.google.com/bigquery/docs/datasets-intro",
+          "https://docs.cloud.google.com/compute/docs/instances",
+          "https://docs.cloud.google.com/tpu/docs/intro-to-tpu"
+        ],
+        "expected_urls": [
+          "https://docs.cloud.google.com/storage/docs/buckets"
+        ]
+      },
+      {
+        "id": "storage-en",
+        "language": "en",
+        "kind": "retrieval",
+        "hit_at_5": true,
+        "reciprocal_rank": 1.0,
+        "returned_urls": [
+          "https://docs.cloud.google.com/storage/docs/buckets",
+          "https://docs.cloud.google.com/sql/docs/introduction",
+          "https://docs.cloud.google.com/bigquery/docs/datasets-intro",
+          "https://docs.cloud.google.com/vision/docs/ocr",
+          "https://docs.cloud.google.com/run/docs/overview/what-is-cloud-run"
+        ],
+        "expected_urls": [
+          "https://docs.cloud.google.com/storage/docs/buckets"
+        ]
+      },
+      {
+        "id": "compute-pt",
+        "language": "pt",
+        "kind": "retrieval",
+        "hit_at_5": true,
+        "reciprocal_rank": 1.0,
+        "returned_urls": [
+          "https://docs.cloud.google.com/compute/docs/instances",
+          "https://docs.cloud.google.com/vertex-ai/docs/model-registry/introduction",
+          "https://docs.cloud.google.com/vertex-ai/docs/predictions/overview",
+          "https://docs.cloud.google.com/tpu/docs/intro-to-tpu",
+          "https://docs.cloud.google.com/dialogflow/cx/docs/basics"
+        ],
+        "expected_urls": [
+          "https://docs.cloud.google.com/compute/docs/instances"
+        ]
+      },
+      {
+        "id": "compute-en",
+        "language": "en",
+        "kind": "retrieval",
+        "hit_at_5": true,
+        "reciprocal_rank": 1.0,
+        "returned_urls": [
+          "https://docs.cloud.google.com/compute/docs/instances",
+          "https://docs.cloud.google.com/tpu/docs/intro-to-tpu",
+          "https://docs.cloud.google.com/vertex-ai/docs/model-registry/introduction",
+          "https://docs.cloud.google.com/vertex-ai/docs/predictions/overview",
+          "https://docs.cloud.google.com/run/docs/overview/what-is-cloud-run"
+        ],
+        "expected_urls": [
+          "https://docs.cloud.google.com/compute/docs/instances"
+        ]
+      },
+      {
+        "id": "bigquery-pt",
+        "language": "pt",
+        "kind": "retrieval",
+        "hit_at_5": true,
+        "reciprocal_rank": 1.0,
+        "returned_urls": [
+          "https://docs.cloud.google.com/bigquery/docs/datasets-intro",
+          "https://docs.cloud.google.com/dialogflow/cx/docs/basics",
+          "https://docs.cloud.google.com/sql/docs/introduction",
+          "https://docs.cloud.google.com/vertex-ai/docs/model-registry/introduction",
+          "https://docs.cloud.google.com/document-ai/docs/overview"
+        ],
+        "expected_urls": [
+          "https://docs.cloud.google.com/bigquery/docs/datasets-intro"
+        ]
+      },
+      {
+        "id": "bigquery-en",
+        "language": "en",
+        "kind": "retrieval",
+        "hit_at_5": true,
+        "reciprocal_rank": 1.0,
+        "returned_urls": [
+          "https://docs.cloud.google.com/bigquery/docs/datasets-intro",
+          "https://docs.cloud.google.com/sql/docs/introduction",
+          "https://docs.cloud.google.com/storage/docs/buckets",
+          "https://docs.cloud.google.com/dialogflow/cx/docs/basics",
+          "https://docs.cloud.google.com/vertex-ai/docs/model-registry/introduction"
+        ],
+        "expected_urls": [
+          "https://docs.cloud.google.com/bigquery/docs/datasets-intro"
+        ]
+      },
+      {
+        "id": "iam-pt",
+        "language": "pt",
+        "kind": "retrieval",
+        "hit_at_5": true,
+        "reciprocal_rank": 1.0,
+        "returned_urls": [
+          "https://docs.cloud.google.com/iam/docs/overview",
+          "https://docs.cloud.google.com/document-ai/docs/overview",
+          "https://docs.cloud.google.com/vertex-ai/docs/model-registry/introduction",
+          "https://docs.cloud.google.com/pubsub/docs/overview",
+          "https://docs.cloud.google.com/compute/docs/instances"
+        ],
+        "expected_urls": [
+          "https://docs.cloud.google.com/iam/docs/overview"
+        ]
+      },
+      {
+        "id": "iam-en",
+        "language": "en",
+        "kind": "retrieval",
+        "hit_at_5": true,
+        "reciprocal_rank": 1.0,
+        "returned_urls": [
+          "https://docs.cloud.google.com/iam/docs/overview",
+          "https://docs.cloud.google.com/storage/docs/buckets",
+          "https://docs.cloud.google.com/vertex-ai/docs/model-registry/introduction",
+          "https://docs.cloud.google.com/document-ai/docs/overview",
+          "https://docs.cloud.google.com/dialogflow/cx/docs/basics"
+        ],
+        "expected_urls": [
+          "https://docs.cloud.google.com/iam/docs/overview"
+        ]
+      },
+      {
+        "id": "cloud-run-pt",
+        "language": "pt",
+        "kind": "retrieval",
+        "hit_at_5": true,
+        "reciprocal_rank": 1.0,
+        "returned_urls": [
+          "https://docs.cloud.google.com/run/docs/overview/what-is-cloud-run",
+          "https://docs.cloud.google.com/tpu/docs/intro-to-tpu",
+          "https://docs.cloud.google.com/compute/docs/instances",
+          "https://docs.cloud.google.com/storage/docs/buckets",
+          "https://docs.cloud.google.com/vision/docs/ocr"
+        ],
+        "expected_urls": [
+          "https://docs.cloud.google.com/run/docs/overview/what-is-cloud-run"
+        ]
+      },
+      {
+        "id": "cloud-run-en",
+        "language": "en",
+        "kind": "retrieval",
+        "hit_at_5": true,
+        "reciprocal_rank": 1.0,
+        "returned_urls": [
+          "https://docs.cloud.google.com/run/docs/overview/what-is-cloud-run",
+          "https://docs.cloud.google.com/storage/docs/buckets",
+          "https://docs.cloud.google.com/tpu/docs/intro-to-tpu",
+          "https://docs.cloud.google.com/compute/docs/instances",
+          "https://docs.cloud.google.com/vision/docs/ocr"
+        ],
+        "expected_urls": [
+          "https://docs.cloud.google.com/run/docs/overview/what-is-cloud-run"
+        ]
+      },
+      {
+        "id": "pubsub-pt",
+        "language": "pt",
+        "kind": "retrieval",
+        "hit_at_5": true,
+        "reciprocal_rank": 1.0,
+        "returned_urls": [
+          "https://docs.cloud.google.com/pubsub/docs/overview",
+          "https://docs.cloud.google.com/iam/docs/overview",
+          "https://docs.cloud.google.com/dialogflow/cx/docs/basics",
+          "https://docs.cloud.google.com/speech-to-text/docs/basics",
+          "https://docs.cloud.google.com/document-ai/docs/overview"
+        ],
+        "expected_urls": [
+          "https://docs.cloud.google.com/pubsub/docs/overview"
+        ]
+      },
+      {
+        "id": "pubsub-en",
+        "language": "en",
+        "kind": "retrieval",
+        "hit_at_5": true,
+        "reciprocal_rank": 1.0,
+        "returned_urls": [
+          "https://docs.cloud.google.com/pubsub/docs/overview",
+          "https://docs.cloud.google.com/speech-to-text/docs/basics",
+          "https://docs.cloud.google.com/dialogflow/cx/docs/basics",
+          "https://docs.cloud.google.com/iam/docs/overview",
+          "https://docs.cloud.google.com/bigquery/docs/datasets-intro"
+        ],
+        "expected_urls": [
+          "https://docs.cloud.google.com/pubsub/docs/overview"
+        ]
+      },
+      {
+        "id": "cloud-sql-pt",
+        "language": "pt",
+        "kind": "retrieval",
+        "hit_at_5": true,
+        "reciprocal_rank": 1.0,
+        "returned_urls": [
+          "https://docs.cloud.google.com/sql/docs/introduction",
+          "https://docs.cloud.google.com/storage/docs/buckets",
+          "https://docs.cloud.google.com/bigquery/docs/datasets-intro",
+          "https://docs.cloud.google.com/vision/docs/ocr",
+          "https://docs.cloud.google.com/iam/docs/overview"
+        ],
+        "expected_urls": [
+          "https://docs.cloud.google.com/sql/docs/introduction"
+        ]
+      },
+      {
+        "id": "cloud-sql-en",
+        "language": "en",
+        "kind": "retrieval",
+        "hit_at_5": true,
+        "reciprocal_rank": 1.0,
+        "returned_urls": [
+          "https://docs.cloud.google.com/sql/docs/introduction",
+          "https://docs.cloud.google.com/storage/docs/buckets",
+          "https://docs.cloud.google.com/bigquery/docs/datasets-intro",
+          "https://docs.cloud.google.com/run/docs/overview/what-is-cloud-run",
+          "https://docs.cloud.google.com/vision/docs/ocr"
+        ],
+        "expected_urls": [
+          "https://docs.cloud.google.com/sql/docs/introduction"
+        ]
+      },
+      {
+        "id": "continuation-pt",
+        "language": "pt",
+        "kind": "continuation",
+        "hit_at_5": true,
+        "reciprocal_rank": 1.0,
+        "returned_urls": [
+          "https://docs.cloud.google.com/vertex-ai/docs/model-registry/introduction",
+          "https://docs.cloud.google.com/vertex-ai/docs/predictions/overview",
+          "https://docs.cloud.google.com/compute/docs/instances",
+          "https://docs.cloud.google.com/document-ai/docs/overview",
+          "https://docs.cloud.google.com/vision/docs/ocr"
+        ],
+        "expected_urls": [
+          "https://docs.cloud.google.com/vertex-ai/docs/model-registry/introduction"
+        ]
+      },
+      {
+        "id": "continuation-en",
+        "language": "en",
+        "kind": "continuation",
+        "hit_at_5": true,
+        "reciprocal_rank": 1.0,
+        "returned_urls": [
+          "https://docs.cloud.google.com/bigquery/docs/datasets-intro",
+          "https://docs.cloud.google.com/sql/docs/introduction",
+          "https://docs.cloud.google.com/storage/docs/buckets",
+          "https://docs.cloud.google.com/vertex-ai/docs/model-registry/introduction",
+          "https://docs.cloud.google.com/dialogflow/cx/docs/basics"
+        ],
+        "expected_urls": [
+          "https://docs.cloud.google.com/bigquery/docs/datasets-intro"
+        ]
+      }
+    ],
+    "hybrid": [
+      {
+        "id": "model-registry-pt",
+        "language": "pt",
+        "kind": "retrieval",
+        "hit_at_5": true,
+        "reciprocal_rank": 1.0,
+        "returned_urls": [
+          "https://docs.cloud.google.com/vertex-ai/docs/model-registry/introduction"
+        ],
+        "expected_urls": [
+          "https://docs.cloud.google.com/vertex-ai/docs/model-registry/introduction"
+        ]
+      },
+      {
+        "id": "model-registry-en",
+        "language": "en",
+        "kind": "retrieval",
+        "hit_at_5": true,
+        "reciprocal_rank": 1.0,
+        "returned_urls": [
+          "https://docs.cloud.google.com/vertex-ai/docs/model-registry/introduction"
+        ],
+        "expected_urls": [
+          "https://docs.cloud.google.com/vertex-ai/docs/model-registry/introduction"
+        ]
+      },
+      {
+        "id": "vertex-endpoint-pt",
+        "language": "pt",
+        "kind": "retrieval",
+        "hit_at_5": true,
+        "reciprocal_rank": 1.0,
+        "returned_urls": [
+          "https://docs.cloud.google.com/vertex-ai/docs/predictions/overview"
+        ],
+        "expected_urls": [
+          "https://docs.cloud.google.com/vertex-ai/docs/predictions/overview"
+        ]
+      },
+      {
+        "id": "vertex-endpoint-en",
+        "language": "en",
+        "kind": "retrieval",
+        "hit_at_5": true,
+        "reciprocal_rank": 1.0,
+        "returned_urls": [
+          "https://docs.cloud.google.com/vertex-ai/docs/predictions/overview"
+        ],
+        "expected_urls": [
+          "https://docs.cloud.google.com/vertex-ai/docs/predictions/overview"
+        ]
+      },
+      {
+        "id": "dialogflow-pt",
+        "language": "pt",
+        "kind": "retrieval",
+        "hit_at_5": true,
+        "reciprocal_rank": 1.0,
+        "returned_urls": [
+          "https://docs.cloud.google.com/dialogflow/cx/docs/basics"
+        ],
+        "expected_urls": [
+          "https://docs.cloud.google.com/dialogflow/cx/docs/basics"
+        ]
+      },
+      {
+        "id": "dialogflow-en",
+        "language": "en",
+        "kind": "retrieval",
+        "hit_at_5": true,
+        "reciprocal_rank": 1.0,
+        "returned_urls": [
+          "https://docs.cloud.google.com/dialogflow/cx/docs/basics"
+        ],
+        "expected_urls": [
+          "https://docs.cloud.google.com/dialogflow/cx/docs/basics"
+        ]
+      },
+      {
+        "id": "vision-pt",
+        "language": "pt",
+        "kind": "retrieval",
+        "hit_at_5": true,
+        "reciprocal_rank": 1.0,
+        "returned_urls": [
+          "https://docs.cloud.google.com/vision/docs/ocr"
+        ],
+        "expected_urls": [
+          "https://docs.cloud.google.com/vision/docs/ocr"
+        ]
+      },
+      {
+        "id": "vision-en",
+        "language": "en",
+        "kind": "retrieval",
+        "hit_at_5": true,
+        "reciprocal_rank": 1.0,
+        "returned_urls": [
+          "https://docs.cloud.google.com/vision/docs/ocr"
+        ],
+        "expected_urls": [
+          "https://docs.cloud.google.com/vision/docs/ocr"
+        ]
+      },
+      {
+        "id": "speech-pt",
+        "language": "pt",
+        "kind": "retrieval",
+        "hit_at_5": true,
+        "reciprocal_rank": 1.0,
+        "returned_urls": [
+          "https://docs.cloud.google.com/speech-to-text/docs/basics"
+        ],
+        "expected_urls": [
+          "https://docs.cloud.google.com/speech-to-text/docs/basics"
+        ]
+      },
+      {
+        "id": "speech-en",
+        "language": "en",
+        "kind": "retrieval",
+        "hit_at_5": true,
+        "reciprocal_rank": 1.0,
+        "returned_urls": [
+          "https://docs.cloud.google.com/speech-to-text/docs/basics"
+        ],
+        "expected_urls": [
+          "https://docs.cloud.google.com/speech-to-text/docs/basics"
+        ]
+      },
+      {
+        "id": "translation-pt",
+        "language": "pt",
+        "kind": "retrieval",
+        "hit_at_5": true,
+        "reciprocal_rank": 1.0,
+        "returned_urls": [
+          "https://docs.cloud.google.com/translate/docs/overview"
+        ],
+        "expected_urls": [
+          "https://docs.cloud.google.com/translate/docs/overview"
+        ]
+      },
+      {
+        "id": "translation-en",
+        "language": "en",
+        "kind": "retrieval",
+        "hit_at_5": true,
+        "reciprocal_rank": 1.0,
+        "returned_urls": [
+          "https://docs.cloud.google.com/translate/docs/overview"
+        ],
+        "expected_urls": [
+          "https://docs.cloud.google.com/translate/docs/overview"
+        ]
+      },
+      {
+        "id": "document-ai-pt",
+        "language": "pt",
+        "kind": "retrieval",
+        "hit_at_5": true,
+        "reciprocal_rank": 1.0,
+        "returned_urls": [
+          "https://docs.cloud.google.com/document-ai/docs/overview"
+        ],
+        "expected_urls": [
+          "https://docs.cloud.google.com/document-ai/docs/overview"
+        ]
+      },
+      {
+        "id": "document-ai-en",
+        "language": "en",
+        "kind": "retrieval",
+        "hit_at_5": true,
+        "reciprocal_rank": 1.0,
+        "returned_urls": [
+          "https://docs.cloud.google.com/document-ai/docs/overview"
+        ],
+        "expected_urls": [
+          "https://docs.cloud.google.com/document-ai/docs/overview"
+        ]
+      },
+      {
+        "id": "tpu-pt",
+        "language": "pt",
+        "kind": "retrieval",
+        "hit_at_5": true,
+        "reciprocal_rank": 1.0,
+        "returned_urls": [
+          "https://docs.cloud.google.com/tpu/docs/intro-to-tpu"
+        ],
+        "expected_urls": [
+          "https://docs.cloud.google.com/tpu/docs/intro-to-tpu"
+        ]
+      },
+      {
+        "id": "tpu-en",
+        "language": "en",
+        "kind": "retrieval",
+        "hit_at_5": true,
+        "reciprocal_rank": 1.0,
+        "returned_urls": [
+          "https://docs.cloud.google.com/tpu/docs/intro-to-tpu"
+        ],
+        "expected_urls": [
+          "https://docs.cloud.google.com/tpu/docs/intro-to-tpu"
+        ]
+      },
+      {
+        "id": "storage-pt",
+        "language": "pt",
+        "kind": "retrieval",
+        "hit_at_5": true,
+        "reciprocal_rank": 1.0,
+        "returned_urls": [
+          "https://docs.cloud.google.com/storage/docs/buckets"
+        ],
+        "expected_urls": [
+          "https://docs.cloud.google.com/storage/docs/buckets"
+        ]
+      },
+      {
+        "id": "storage-en",
+        "language": "en",
+        "kind": "retrieval",
+        "hit_at_5": true,
+        "reciprocal_rank": 1.0,
+        "returned_urls": [
+          "https://docs.cloud.google.com/storage/docs/buckets"
+        ],
+        "expected_urls": [
+          "https://docs.cloud.google.com/storage/docs/buckets"
+        ]
+      },
+      {
+        "id": "compute-pt",
+        "language": "pt",
+        "kind": "retrieval",
+        "hit_at_5": true,
+        "reciprocal_rank": 1.0,
+        "returned_urls": [
+          "https://docs.cloud.google.com/compute/docs/instances"
+        ],
+        "expected_urls": [
+          "https://docs.cloud.google.com/compute/docs/instances"
+        ]
+      },
+      {
+        "id": "compute-en",
+        "language": "en",
+        "kind": "retrieval",
+        "hit_at_5": true,
+        "reciprocal_rank": 1.0,
+        "returned_urls": [
+          "https://docs.cloud.google.com/compute/docs/instances"
+        ],
+        "expected_urls": [
+          "https://docs.cloud.google.com/compute/docs/instances"
+        ]
+      },
+      {
+        "id": "bigquery-pt",
+        "language": "pt",
+        "kind": "retrieval",
+        "hit_at_5": true,
+        "reciprocal_rank": 1.0,
+        "returned_urls": [
+          "https://docs.cloud.google.com/bigquery/docs/datasets-intro"
+        ],
+        "expected_urls": [
+          "https://docs.cloud.google.com/bigquery/docs/datasets-intro"
+        ]
+      },
+      {
+        "id": "bigquery-en",
+        "language": "en",
+        "kind": "retrieval",
+        "hit_at_5": true,
+        "reciprocal_rank": 1.0,
+        "returned_urls": [
+          "https://docs.cloud.google.com/bigquery/docs/datasets-intro"
+        ],
+        "expected_urls": [
+          "https://docs.cloud.google.com/bigquery/docs/datasets-intro"
+        ]
+      },
+      {
+        "id": "iam-pt",
+        "language": "pt",
+        "kind": "retrieval",
+        "hit_at_5": true,
+        "reciprocal_rank": 1.0,
+        "returned_urls": [
+          "https://docs.cloud.google.com/iam/docs/overview"
+        ],
+        "expected_urls": [
+          "https://docs.cloud.google.com/iam/docs/overview"
+        ]
+      },
+      {
+        "id": "iam-en",
+        "language": "en",
+        "kind": "retrieval",
+        "hit_at_5": true,
+        "reciprocal_rank": 1.0,
+        "returned_urls": [
+          "https://docs.cloud.google.com/iam/docs/overview"
+        ],
+        "expected_urls": [
+          "https://docs.cloud.google.com/iam/docs/overview"
+        ]
+      },
+      {
+        "id": "cloud-run-pt",
+        "language": "pt",
+        "kind": "retrieval",
+        "hit_at_5": true,
+        "reciprocal_rank": 1.0,
+        "returned_urls": [
+          "https://docs.cloud.google.com/run/docs/overview/what-is-cloud-run"
+        ],
+        "expected_urls": [
+          "https://docs.cloud.google.com/run/docs/overview/what-is-cloud-run"
+        ]
+      },
+      {
+        "id": "cloud-run-en",
+        "language": "en",
+        "kind": "retrieval",
+        "hit_at_5": true,
+        "reciprocal_rank": 1.0,
+        "returned_urls": [
+          "https://docs.cloud.google.com/run/docs/overview/what-is-cloud-run"
+        ],
+        "expected_urls": [
+          "https://docs.cloud.google.com/run/docs/overview/what-is-cloud-run"
+        ]
+      },
+      {
+        "id": "pubsub-pt",
+        "language": "pt",
+        "kind": "retrieval",
+        "hit_at_5": true,
+        "reciprocal_rank": 1.0,
+        "returned_urls": [
+          "https://docs.cloud.google.com/pubsub/docs/overview"
+        ],
+        "expected_urls": [
+          "https://docs.cloud.google.com/pubsub/docs/overview"
+        ]
+      },
+      {
+        "id": "pubsub-en",
+        "language": "en",
+        "kind": "retrieval",
+        "hit_at_5": true,
+        "reciprocal_rank": 1.0,
+        "returned_urls": [
+          "https://docs.cloud.google.com/pubsub/docs/overview"
+        ],
+        "expected_urls": [
+          "https://docs.cloud.google.com/pubsub/docs/overview"
+        ]
+      },
+      {
+        "id": "cloud-sql-pt",
+        "language": "pt",
+        "kind": "retrieval",
+        "hit_at_5": true,
+        "reciprocal_rank": 1.0,
+        "returned_urls": [
+          "https://docs.cloud.google.com/sql/docs/introduction"
+        ],
+        "expected_urls": [
+          "https://docs.cloud.google.com/sql/docs/introduction"
+        ]
+      },
+      {
+        "id": "cloud-sql-en",
+        "language": "en",
+        "kind": "retrieval",
+        "hit_at_5": true,
+        "reciprocal_rank": 1.0,
+        "returned_urls": [
+          "https://docs.cloud.google.com/sql/docs/introduction"
+        ],
+        "expected_urls": [
+          "https://docs.cloud.google.com/sql/docs/introduction"
+        ]
+      },
+      {
+        "id": "continuation-pt",
+        "language": "pt",
+        "kind": "continuation",
+        "hit_at_5": true,
+        "reciprocal_rank": 1.0,
+        "returned_urls": [
+          "https://docs.cloud.google.com/vertex-ai/docs/model-registry/introduction"
+        ],
+        "expected_urls": [
+          "https://docs.cloud.google.com/vertex-ai/docs/model-registry/introduction"
+        ]
+      },
+      {
+        "id": "continuation-en",
+        "language": "en",
+        "kind": "continuation",
+        "hit_at_5": true,
+        "reciprocal_rank": 1.0,
+        "returned_urls": [
+          "https://docs.cloud.google.com/bigquery/docs/datasets-intro"
+        ],
+        "expected_urls": [
+          "https://docs.cloud.google.com/bigquery/docs/datasets-intro"
+        ]
+      }
+    ]
+  }
+}

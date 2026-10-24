@@ -1,0 +1,12 @@
+{
+  "content": "# Vertex AI prediction\n\n## Online prediction endpoints\n\nVertex AI online prediction serves a deployed model through an endpoint. Batch prediction processes a batch of input instances asynchronously. Predição online usa endpoints; predição em lote processa entradas de maneira assíncrona.",
+  "metadata": {
+    "source_url": "https://docs.cloud.google.com/vertex-ai/docs/predictions/overview",
+    "title": "Vertex AI prediction",
+    "product": "Vertex AI prediction",
+    "section": "Online prediction endpoints",
+    "crawled_at": null,
+    "fixture": true,
+    "fixture_note": "Hand-authored paraphrase for testing; not a scraped or current documentation snapshot."
+  }
+}
