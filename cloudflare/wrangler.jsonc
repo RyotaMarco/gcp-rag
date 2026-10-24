@@ -1,0 +1,85 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "gcp-ai-copilot",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-08-06",
+  "workers_dev": false,
+  "preview_urls": false,
+  "routes": [
+    {
+      "pattern": "gcp.marco-ryota.com",
+      "custom_domain": true
+    }
+  ],
+  "observability": {
+    "enabled": false
+  },
+  "assets": {
+    "directory": "../frontend/dist",
+    "binding": "ASSETS",
+    "not_found_handling": "single-page-application",
+    "html_handling": "drop-trailing-slash",
+    "run_worker_first": [
+      "/api/*"
+    ]
+  },
+  "ai": {
+    "binding": "AI"
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "gcp-copilot-demo",
+      "database_id": "18f81236-c2d5-4f8f-adf2-d88b49e8ac36",
+      "migrations_dir": "migrations"
+    }
+  ],
+  "vectorize": [
+    {
+      "binding": "VECTORIZE",
+      "index_name": "gcp-copilot-demo"
+    }
+  ],
+  "durable_objects": {
+    "bindings": [
+      {
+        "name": "BUDGET",
+        "class_name": "BudgetGuard"
+      }
+    ]
+  },
+  "migrations": [
+    {
+      "tag": "v1",
+      "new_sqlite_classes": [
+        "BudgetGuard"
+      ]
+    }
+  ],
+  "services": [
+    {
+      "binding": "MCP",
+      "service": "gcp-copilot-mcp",
+      "entrypoint": "McpPrivate"
+    }
+  ],
+  "ratelimits": [
+    {
+      "name": "EDGE_RATE_LIMIT",
+      "namespace_id": "940911",
+      "simple": {
+        "limit": 30,
+        "period": 60
+      }
+    }
+  ],
+  "vars": {
+    "DEMO_ENABLED": "true",
+    "ENVIRONMENT": "production",
+    "CORPUS_VERSION": "docs-d91e5f5e46cf",
+    "ALLOWED_ORIGINS": "https://gcp.marco-ryota.com",
+    "TURNSTILE_HOSTNAMES": "gcp.marco-ryota.com",
+    "MIN_DENSE_SCORE": ".45"
+  },
+  "account_id": "6b436fdf69ec96a83f094e931d764468"
+}

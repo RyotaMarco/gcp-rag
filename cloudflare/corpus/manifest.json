@@ -1,0 +1,224 @@
+{
+  "version": "docs-d91e5f5e46cf",
+  "manifestSha": "d91e5f5e46cf68e2936d71995e4cbebbe4a14d9ef99ab0b6243df3a3806f658c",
+  "chunksSha256": "d00f2f2cf99e925ac6bdba17e01a51f741ba85b950654a90cf9436495b9c14e4",
+  "embeddingModel": "@cf/baai/bge-m3",
+  "dimensions": 1024,
+  "services": [
+    "Vertex AI",
+    "Cloud Storage",
+    "BigQuery",
+    "Compute Engine",
+    "IAM",
+    "Cloud Run"
+  ],
+  "pages": 29,
+  "chunks": 467,
+  "collectedAt": "2026-10-24T21:00:52.924437+00:00",
+  "fixture": false,
+  "sources": [
+    {
+      "url": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/machine-learning",
+      "title": "Introduction to machine learning on Gemini Enterprise Agent Platform Stay organized with collections Save and categorize content based on your preferences.",
+      "product": "Vertex AI",
+      "crawled_at": "2026-10-24T21:00:44.231722+00:00",
+      "sha256": "ef3548b67f4729ce4be4305b7715d8ef4065866c392dffd63eff2fad8913b041"
+    },
+    {
+      "url": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/machine-learning/model-registry/introduction",
+      "title": "Introduction to Model Registry Stay organized with collections Save and categorize content based on your preferences.",
+      "product": "Vertex AI",
+      "crawled_at": "2026-10-24T21:00:46.430460+00:00",
+      "sha256": "66bd54f1b57ee9f9c71ce58d45c67cc2936e0c9884161b60c36a809071979461"
+    },
+    {
+      "url": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/machine-learning/predictions",
+      "title": "Overview of getting inferences on Agent Platform Stay organized with collections Save and categorize content based on your preferences.",
+      "product": "Vertex AI",
+      "crawled_at": "2026-10-24T21:00:48.516201+00:00",
+      "sha256": "d4087decf51e229459008532df18000780ebe194f50e2a909a3d7f231f7ce11b"
+    },
+    {
+      "url": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/machine-learning/general/deployment",
+      "title": "Deploy a model to an endpoint Stay organized with collections Save and categorize content based on your preferences.",
+      "product": "Vertex AI",
+      "crawled_at": "2026-10-24T21:00:50.782604+00:00",
+      "sha256": "c191bb9ec327675d0a95a2dc31be96cc9e92fab5fe4d0498737e2ca257dbfd17"
+    },
+    {
+      "url": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/beginners-guide",
+      "title": "Generative AI beginner's guide Stay organized with collections Save and categorize content based on your preferences.",
+      "product": "Vertex AI",
+      "crawled_at": "2026-10-24T21:00:52.924437+00:00",
+      "sha256": "05eaafb0cc33f0c022f276ee585334f581ca183ec683150df752f49b34a9a12f"
+    },
+    {
+      "url": "https://docs.cloud.google.com/storage/docs/introduction",
+      "title": "Cloud Storage overview Stay organized with collections Save and categorize content based on your preferences.",
+      "product": "Cloud Storage",
+      "crawled_at": "2026-10-24T20:58:41.168718+00:00",
+      "sha256": "aae204b545d52b0c820ffa2973538a349d46997c032eeb62efbc6f30eda57641"
+    },
+    {
+      "url": "https://docs.cloud.google.com/storage/docs/buckets",
+      "title": "About Cloud Storage buckets Stay organized with collections Save and categorize content based on your preferences.",
+      "product": "Cloud Storage",
+      "crawled_at": "2026-10-24T20:58:42.804619+00:00",
+      "sha256": "0f1794b13e2a1c8a7ca97e2a0993cd1923503c127312356df0c94762c70176cd"
+    },
+    {
+      "url": "https://docs.cloud.google.com/storage/docs/objects",
+      "title": "About Cloud Storage objects Stay organized with collections Save and categorize content based on your preferences.",
+      "product": "Cloud Storage",
+      "crawled_at": "2026-10-24T20:58:44.474787+00:00",
+      "sha256": "68bd793db4e4b8500aa1e5f22c380e1e2f9ef0801410491a7815cbc219a06d1e"
+    },
+    {
+      "url": "https://docs.cloud.google.com/storage/docs/access-control/iam",
+      "title": "Identity and Access Management Stay organized with collections Save and categorize content based on your preferences.",
+      "product": "Cloud Storage",
+      "crawled_at": "2026-10-24T20:58:45.919759+00:00",
+      "sha256": "bf729467f812d3c722b7070cf194961c5707b790b7448eee50943d3a5a97c502"
+    },
+    {
+      "url": "https://docs.cloud.google.com/storage/docs/request-rate",
+      "title": "Request rate and access distribution guidelines Stay organized with collections Save and categorize content based on your preferences.",
+      "product": "Cloud Storage",
+      "crawled_at": "2026-10-24T20:58:47.925673+00:00",
+      "sha256": "52ab08a49cb81ee3d77264ca6a913eea53eb9b5c2237d82ebd8b653721431206"
+    },
+    {
+      "url": "https://docs.cloud.google.com/bigquery/docs/introduction",
+      "title": "BigQuery overview",
+      "product": "BigQuery",
+      "crawled_at": "2026-10-24T20:58:49.540015+00:00",
+      "sha256": "22855d54209b5d0e3680537d103d38ea5d25259fb4478f3cdafdc92d304012df"
+    },
+    {
+      "url": "https://docs.cloud.google.com/bigquery/docs/datasets-intro",
+      "title": "Introduction to datasets",
+      "product": "BigQuery",
+      "crawled_at": "2026-10-24T20:58:51.318736+00:00",
+      "sha256": "e62940c23dca9590103d3bb146c3b65d50296ed668681741517b17c84f668a55"
+    },
+    {
+      "url": "https://docs.cloud.google.com/bigquery/docs/tables-intro",
+      "title": "Introduction to tables",
+      "product": "BigQuery",
+      "crawled_at": "2026-10-24T20:58:52.853392+00:00",
+      "sha256": "0f94744e39f041ee36d23c922872239f867340332e7a6ce58bd02e97b3e7eb87"
+    },
+    {
+      "url": "https://docs.cloud.google.com/bigquery/docs/query-overview",
+      "title": "Overview of BigQuery analytics",
+      "product": "BigQuery",
+      "crawled_at": "2026-10-24T20:58:54.337222+00:00",
+      "sha256": "5a223f2b08cec37829fb300313fe3731145bee5800694475d4337b42f323d0aa"
+    },
+    {
+      "url": "https://docs.cloud.google.com/compute/docs/overview",
+      "title": "Compute Engine overview Stay organized with collections Save and categorize content based on your preferences.",
+      "product": "Compute Engine",
+      "crawled_at": "2026-10-24T20:58:59.574245+00:00",
+      "sha256": "47e52b56ae4f673660ccbd2b69f220cdf6c2952548278f1b0add0cf666a65eb1"
+    },
+    {
+      "url": "https://docs.cloud.google.com/compute/docs/instances",
+      "title": "Compute Engine instances Stay organized with collections Save and categorize content based on your preferences.",
+      "product": "Compute Engine",
+      "crawled_at": "2026-10-24T20:59:01.391034+00:00",
+      "sha256": "0f0567e7bcd5e27e4d90aa1d28091a63c742aec3f0178c18d9ee709e4b27286b"
+    },
+    {
+      "url": "https://docs.cloud.google.com/compute/docs/instances/create-start-instance",
+      "title": "Create and start a Compute Engine instance Stay organized with collections Save and categorize content based on your preferences.",
+      "product": "Compute Engine",
+      "crawled_at": "2026-10-24T20:59:04.125133+00:00",
+      "sha256": "bca2b11e7d5804bb5fceae1f4813549edbcfb89f69db0bf676f7565ae2e9fb30"
+    },
+    {
+      "url": "https://docs.cloud.google.com/compute/docs/instances/stop-start-instance",
+      "title": "Stop or restart a Compute Engine instance Stay organized with collections Save and categorize content based on your preferences.",
+      "product": "Compute Engine",
+      "crawled_at": "2026-10-24T20:59:06.463854+00:00",
+      "sha256": "06c4ee43ef43f8fb6330b2c0ef09ca6ba4d18993e52bb52491199e04fc07eeeb"
+    },
+    {
+      "url": "https://docs.cloud.google.com/compute/docs/disks",
+      "title": "Choose a disk type Stay organized with collections Save and categorize content based on your preferences.",
+      "product": "Compute Engine",
+      "crawled_at": "2026-10-24T20:59:08.178830+00:00",
+      "sha256": "d06c8e77f089146e8ba766fc7b004f25eecd4e81cf8c9a3d571964252b0a1272"
+    },
+    {
+      "url": "https://docs.cloud.google.com/iam/docs/overview",
+      "title": "IAM overview Stay organized with collections Save and categorize content based on your preferences.",
+      "product": "IAM",
+      "crawled_at": "2026-10-24T20:59:09.862423+00:00",
+      "sha256": "629ca34f559b7c1d87cac246348ef703e8daaa43bc18916a5ef1ab31ba2e04f8"
+    },
+    {
+      "url": "https://docs.cloud.google.com/iam/docs/roles-overview",
+      "title": "Roles overview Stay organized with collections Save and categorize content based on your preferences.",
+      "product": "IAM",
+      "crawled_at": "2026-10-24T20:59:11.857639+00:00",
+      "sha256": "2d457b8635e7f571ed76233ae133e8d36843bc0859e54b91cb32d03467f75671"
+    },
+    {
+      "url": "https://docs.cloud.google.com/iam/docs/granting-changing-revoking-access",
+      "title": "Manage access to projects, folders, and organizations Stay organized with collections Save and categorize content based on your preferences.",
+      "product": "IAM",
+      "crawled_at": "2026-10-24T20:59:14.268845+00:00",
+      "sha256": "992b82b90387692af3e82a3756638be5533024b8af95ef5eefa0c43fb317c257"
+    },
+    {
+      "url": "https://docs.cloud.google.com/iam/docs/service-account-overview",
+      "title": "Service accounts overview Stay organized with collections Save and categorize content based on your preferences.",
+      "product": "IAM",
+      "crawled_at": "2026-10-24T20:59:15.944254+00:00",
+      "sha256": "3cb17c9bbd65fd2565afe96967bb54838efd952018411bf7274f61cb1eb3822c"
+    },
+    {
+      "url": "https://docs.cloud.google.com/iam/docs/best-practices-for-managing-service-account-keys",
+      "title": "Best practices for managing service account keys Stay organized with collections Save and categorize content based on your preferences.",
+      "product": "IAM",
+      "crawled_at": "2026-10-24T20:59:17.498400+00:00",
+      "sha256": "6df9664ac25aca42343dce20f16ce88bf955adc0e47cad17d4beb487c934f3fc"
+    },
+    {
+      "url": "https://docs.cloud.google.com/run/docs/overview/what-is-cloud-run",
+      "title": "What is Cloud Run Stay organized with collections Save and categorize content based on your preferences.",
+      "product": "Cloud Run",
+      "crawled_at": "2026-10-24T20:59:19.421632+00:00",
+      "sha256": "1c2f2117cb5b4da57a92760a3b34749766b03a6c6a61f95aa6376b3d2d04cc35"
+    },
+    {
+      "url": "https://docs.cloud.google.com/run/docs/container-contract",
+      "title": "Container runtime contract Stay organized with collections Save and categorize content based on your preferences.",
+      "product": "Cloud Run",
+      "crawled_at": "2026-10-24T20:59:21.017433+00:00",
+      "sha256": "1de896be7b56f449017ec7278e0c67e1c98fc7dd2c8e2e98d6a12d4f87a45312"
+    },
+    {
+      "url": "https://docs.cloud.google.com/run/docs/deploying",
+      "title": "Deploy container images to Cloud Run services Stay organized with collections Save and categorize content based on your preferences.",
+      "product": "Cloud Run",
+      "crawled_at": "2026-10-24T20:59:22.613416+00:00",
+      "sha256": "cc63ee1ab769988e105c680cb3770d6fc58b4168717b1fabbf587d8b15bc0333"
+    },
+    {
+      "url": "https://docs.cloud.google.com/run/docs/triggering/https-request",
+      "title": "Invoke with an HTTPS Request Stay organized with collections Save and categorize content based on your preferences.",
+      "product": "Cloud Run",
+      "crawled_at": "2026-10-24T20:59:24.146954+00:00",
+      "sha256": "99e8958c43582a528fcf66cb792d66401f2b805b85e489ccc135bfac528e718e"
+    },
+    {
+      "url": "https://docs.cloud.google.com/run/docs/configuring/services/service-identity",
+      "title": "Configure service identity for services Stay organized with collections Save and categorize content based on your preferences.",
+      "product": "Cloud Run",
+      "crawled_at": "2026-10-24T20:59:25.776161+00:00",
+      "sha256": "e09bbd3e43f739fa0d7280ede3048d8520f42734afb4454e1c12baa8ddc19c4c"
+    }
+  ]
+}

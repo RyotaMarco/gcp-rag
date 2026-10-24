@@ -97,3 +97,50 @@ jobs:
       - name: Remove disposable test volumes
         if: always()
         run: docker compose down --volumes
+
+
+  cloudflare:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      WRANGLER_SEND_METRICS: 'false'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: '1.4.4'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: cloudflare/requirements-ingest.txt
+      - name: Install lightweight collector checks
+        run: python -m pip install -r cloudflare/requirements-ingest.txt pytest==8.4.2
+      - name: Verify the versioned corpus offline
+        run: |
+          python cloudflare/scripts/prepare-corpus.py
+          python -m pytest -c cloudflare/pytest.ini -q cloudflare/tests/test_prepare_corpus.py
+      - name: Build static assets without calling an AI provider
+        run: |
+          npm ci --prefix frontend
+          npm run build --prefix frontend
+      - name: Install the pinned Cloudflare toolchain
+        working-directory: cloudflare
+        run: bun install --frozen-lockfile
+      - name: Check bindings and TypeScript
+        working-directory: cloudflare
+        run: bun run typecheck
+      - name: Test admission, security, protocol and runtime boundaries
+        working-directory: cloudflare
+        run: bun test tests
+      - name: Validate public, preview and private Worker bundles without deployment
+        working-directory: cloudflare
+        run: |
+          bun run check:deploy
+          bun x wrangler deploy --dry-run --config wrangler.preview.jsonc --outdir .wrangler/dry-run-preview
+          bun x wrangler deploy --dry-run --config wrangler.mcp.jsonc --outdir .wrangler/dry-run-mcp

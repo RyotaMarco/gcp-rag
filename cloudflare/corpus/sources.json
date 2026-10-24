@@ -1,0 +1,75 @@
+{
+  "maxPages": 30,
+  "maxChunks": 750,
+  "services": [
+    {
+      "product": "Vertex AI",
+      "prefix": [
+        "/vertex-ai/",
+        "/gemini-enterprise-agent-platform/machine-learning/",
+        "/gemini-enterprise-agent-platform/models/beginners-guide/"
+      ],
+      "pages": [
+        "/vertex-ai/docs/start/introduction-unified-platform",
+        "/vertex-ai/docs/model-registry/introduction",
+        "/vertex-ai/docs/predictions/overview",
+        "/vertex-ai/docs/general/deployment",
+        "/vertex-ai/generative-ai/docs/learn/overview"
+      ]
+    },
+    {
+      "product": "Cloud Storage",
+      "prefix": "/storage/",
+      "pages": [
+        "/storage/docs/introduction",
+        "/storage/docs/buckets",
+        "/storage/docs/objects",
+        "/storage/docs/access-control/iam",
+        "/storage/docs/request-rate"
+      ]
+    },
+    {
+      "product": "BigQuery",
+      "prefix": "/bigquery/",
+      "pages": [
+        "/bigquery/docs/introduction",
+        "/bigquery/docs/datasets-intro",
+        "/bigquery/docs/tables-intro",
+        "/bigquery/docs/query-overview"
+      ]
+    },
+    {
+      "product": "Compute Engine",
+      "prefix": "/compute/",
+      "pages": [
+        "/compute/docs/overview",
+        "/compute/docs/instances",
+        "/compute/docs/instances/create-start-instance",
+        "/compute/docs/instances/stop-start-instance",
+        "/compute/docs/disks"
+      ]
+    },
+    {
+      "product": "IAM",
+      "prefix": "/iam/",
+      "pages": [
+        "/iam/docs/overview",
+        "/iam/docs/roles-overview",
+        "/iam/docs/granting-changing-revoking-access",
+        "/iam/docs/service-account-overview",
+        "/iam/docs/best-practices-for-managing-service-account-keys"
+      ]
+    },
+    {
+      "product": "Cloud Run",
+      "prefix": "/run/",
+      "pages": [
+        "/run/docs/overview/what-is-cloud-run",
+        "/run/docs/container-contract",
+        "/run/docs/deploying",
+        "/run/docs/triggering/https-request",
+        "/run/docs/configuring/services/service-identity"
+      ]
+    }
+  ]
+}

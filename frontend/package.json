@@ -5,12 +5,14 @@
   "type": "module",
   "scripts": {
     "dev": "vite --host 0.0.0.0",
-    "build": "vite build",
+    "build": "vite build && node scripts/prerender-locales.mjs",
     "lint": "eslint .",
     "test": "vitest run",
     "preview": "vite preview"
   },
   "dependencies": {
+    "@fontsource-variable/space-grotesk": "^5.3.0",
+    "@fontsource/ibm-plex-mono": "^5.3.0",
     "react": "19.2.4",
     "react-dom": "19.2.4",
     "react-markdown": "10.1.0",
