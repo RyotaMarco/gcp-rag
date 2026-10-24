@@ -6,7 +6,7 @@ Verificações executadas em 24/10/2026. Testes simulados e testes de serviços/
 
 | Verificação | Resultado | Escopo |
 | --- | --- | --- |
-| `python -m pytest -q` | **60 testes passaram** | Backend, armazenamento, ingestão, recuperação, API, geração HTTP simulada, handshake MCP real por HTTP e benchmark. |
+| `python -m pytest -q` | **61 testes passaram** | Backend, armazenamento, ingestão, recuperação, API, geração HTTP simulada, handshake MCP real por HTTP e benchmark. |
 | Testes frontend (`npm test -- --run`) | **8 testes passaram** | Comportamento da interface; respostas de API simuladas. |
 | Frontend lint e build | **Passaram**, conforme validação da implementação | Build estático e análise do código. |
 | Auditoria de dependências frontend | **0 vulnerabilidades reportadas** na execução | Estado da base de auditoria no momento do teste. |
@@ -14,7 +14,7 @@ Verificações executadas em 24/10/2026. Testes simulados e testes de serviços/
 | Recuperação `--mode real` | **32/32 Hit@5**, gate de 85% passou | E5 multilíngue + crossencoder reais sobre 15 documentos curados. |
 | Coleta HTTP real de documentação | **3 páginas salvas; 0 falhas** | Uma página de cada serviço: Vertex AI, Document AI e Cloud Translation. |
 
-A coleta real de uma página de cada serviço Vertex AI, Document AI e Cloud Translation também passou (três páginas salvas, sem falhas). A interface foi verificada em Edge headless em desktop e celular de 390 px, sem overflow horizontal.
+A coleta real de uma página de cada serviço Vertex AI, Document AI e Cloud Translation também passou (três páginas salvas, sem falhas). A interface foi verificada em Edge headless em desktop e celular de 390 px, sem overflow horizontal. Um segundo teste conectou a interface ao FastAPI, Qdrant persistente e MCP reais, sem interceptação da API: consultou VMs fictícias e exibiu corretamente o erro de chave Groq ausente.
 
 ### Benchmark
 
@@ -28,9 +28,9 @@ A comparação `--mode real --compare-original` também foi executada: o MiniLM 
 
 A coleta real foi executada por `GCPDocsCrawler(Settings(data_dir=Path('../live-docs-smoke'), crawl_delay=0)).run(services='Vertex AI,Document AI,Cloud Translation', max_pages=1)`, via Python/asyncio. Cada serviço retornou `saved=1`, `failed=0` e `skipped=0`. Os JSONs dessa verificação estão fora do repositório; a suíte de recuperação usa as fixtures identificadas, não esses três snapshots.
 
-## Serviços e cenários não confirmados neste ambiente
+## Stack completa e limites de validação
 
-- **Docker Compose completo:** configuração e smoke automatizados entregues, mas execução local não confirmada, pois Docker não está disponível neste ambiente. Não declarar a instalação Docker validada até o job de CI passar.
+- **Docker Compose completo: validado em Linux no GitHub Actions.** Backend, frontend e `compose-smoke` passaram na [execução 40127306934](https://github.com/RyotaMarco/gcp-rag/actions/runs/40127306934), commit `bafe872d16220d0cde3588c9547313b8ba2c4e17`. Confirmados: build das imagens, início sem índice/chave, ingestão com modelos reais, MCP por HTTP, idempotência e persistência após reinício. O host Windows não tem Docker; a validação da stack ocorreu no CI.
 - **Groq real:** não validada sem credencial disponível. Respostas HTTP simuladas verificam chave ausente, rate limit e timeout, mas não confirmam autenticação, cota, disponibilidade do modelo ou qualidade da geração real.
 - **Hospedagem pública, login multiusuário e recursos GCP reais:** fora do escopo; MCP opera exclusivamente sobre dados fictícios.
 
@@ -48,4 +48,4 @@ npm run lint
 npm run build
 ```
 
-O workflow `.github/workflows/ci.yml` valida backend, frontend e stack Compose em runner Linux. O job de stack usa modelos locais reais para indexar as fixtures, verifica inicialização sem índice, prontidão sem chave, consultas MCP, repetição de ingestão e persistência após reinício. Exporta o benchmark real e os resultados de contagem como artefatos. O resultado só é confirmado depois de uma execução bem-sucedida do workflow.
+O workflow `.github/workflows/ci.yml` valida backend, frontend e stack Compose em runner Linux. O job de stack usa modelos locais reais para indexar as fixtures, verifica inicialização sem índice, prontidão sem chave, consultas MCP, repetição de ingestão e persistência após reinício. Exporta o benchmark real e os resultados de contagem como artefatos. A execução citada acima confirmou as três frentes; o status do PR permite acompanhar as revisões seguintes.

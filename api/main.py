@@ -57,7 +57,7 @@ def create_app(settings=None, pipeline=None):
         if client is not None:
             client.close()
 
-    app = FastAPI(title="GCP AI Assistant", version="2.0.0", lifespan=lifespan)
+    app = FastAPI(title="GCP AI Assistant", version="2.0.0", root_path="/api", lifespan=lifespan)
 
     @app.exception_handler(AssistantError)
     async def assistant_error(request: Request, exc: AssistantError):
